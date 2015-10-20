@@ -52,8 +52,8 @@
             投资期限
 	      <input type="text" name="invest_time" class="form-control" required="required" value="{{ $contract->invest_time }}"> 
             <br>
-            渠道提成
-	     <input type="text" name="channel_cut" class="form-control" required="required" value="{{ $contract->channel_cut }}">
+            渠道提成(%)
+	     <input type="text" name="channel_cut" class="form-control" required="required" value="{{ $contract->channel_cut }}%">
             <br>
             <button class="btn btn-lg btn-info">修改合同</button>
                        </form>

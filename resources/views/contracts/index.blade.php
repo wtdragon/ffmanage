@@ -13,10 +13,10 @@
 <th>付款方式</th>
 <th>付款日期</th>
 <th>付款时间</th>
-<th>成交金额</th>
+<th>成交金额(万元）)</th>
 <th>年化收益</th>
 <th>投资期限</th>
-<th>渠道提成</th>
+<th>渠道提成(%)</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -33,7 +33,7 @@
 <td>{{ $contract->deal_money }}</td>
 <td>{{ $contract->profit_byyear}}</td>
 <td>{{ $contract->invest_time }}</td>
-<td>{{ $contract->channel_cut}}</td>
+<td>{{ $contract->channel_cut}}%</td>
 <td><a href="{{ URL::route('contracts.edit', $contract->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 <form action="{{ URL('contracts/'.$contract->id) }}" method="POST" style="display: inline;">
               <input name="_method" type="hidden" value="DELETE">

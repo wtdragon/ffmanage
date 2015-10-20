@@ -43,7 +43,7 @@
 	  付款时间
             <input type="time" name="pay_time" class="form-control" required="required">
             <br>
-            成交金额
+            成交金额(万元)
              <input type="text" name="deal_money" class="form-control" required="required">
             <br>
             年化收益
@@ -52,7 +52,7 @@
             投资期限
 	      <input type="text" name="invest_time" class="form-control" required="required">
             <br>
-            渠道提成
+            渠道提成(%)
 	     <input type="date" name="channel_cut" class="form-control" required="required">
             <br>
             <button class="btn btn-lg btn-info">新增合同</button>

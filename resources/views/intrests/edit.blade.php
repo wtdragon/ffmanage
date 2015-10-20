@@ -34,7 +34,7 @@
             分红金额
 	      <input type="text" name="interests_money" class="form-control" required="required" value="{{ $interest->interests_money }}">
             <br>
-            月利率
+                                 月利率%
 	     <input type="text" name="rate_bymonth" class="form-control" required="required" value="{{ $interest->rate_bymonth }}">
             <br>
             <button class="btn btn-lg btn-info">修改分红</button>

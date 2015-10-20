@@ -10,7 +10,7 @@
 <th>计划结息日</th>
 <th>实际结息日</th>
 <th>利息金额</th>
-<th>月利率</th>
+<th>月利率%</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -22,7 +22,7 @@
 <td>{{ $intrest->planinterest_date }}</td>
 <td>{{ $intrest->realinterest_date}}</td>
 <td>{{ $intrest->interests_money }}</td>
-<td>{{ $intrest->rate_bymonth}}</td>
+<td>{{ $intrest->rate_bymonth}}%</td>
 <td><a href="{{ URL::route('intrests.edit', $intrest->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 <form action="{{ URL('intrests/'.$intrest->id) }}" method="POST" style="display: inline;">
               <input name="_method" type="hidden" value="DELETE">
