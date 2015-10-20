@@ -3,37 +3,44 @@
 @stop
 @section('content')
 <div class="center" >
-<table class="table table-bordered">
-<thead>
-<tr>
-<th>产品编码</th>
-<th>产品名称</th>
-<th>开始日期</th>
-<th>结束日期</th>
-<th><i class="icon-cog"></i></th>
-</tr>
-</thead>
-<tbody>
- @foreach ($products as $product)
-<tr>
-<td>{{ $product->product_id}}</td>	
-<td>{{ $product->product_name}}</td>
-<td>{{ $product->start_date }}</td>
-<td>{{ $product->end_date}}</td>
+<div class="col-sm-6">
+<form role="form" id="productform" action="/prodreports">
+   <div class="form-group">
+      <label for="name">产品名称</label>
+      <select class="form-control" name="productname">
+      	@foreach ($products as $product)
+         <option>{{ $product->product_name }}</option>
+         @endforeach
+      </select>
 
-<td><a href="{{ URL::route('products.edit', $product->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
-<form action="{{ URL('products/'.$product->id) }}" method="POST" style="display: inline;">
-              <input name="_method" type="hidden" value="DELETE">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <button type="submit" class="btn btn-danger">删除</button>
-            </form>
-</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-<a href="{{ URL::route('products.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
- 
+      <label for="name">日期范围</label>
+        <input type="text" class="form-control" name="begintime" 
+            placeholder="开始日期">~
+          <input type="text" class="form-control" name="endtime" 
+            placeholder="结束日期">   
+        <button type="submit" class="btn btn-default" target="_blank">生成产品支付明细报表</button>
+   </div>
+</form>
+ </div>  
+ <div class="col-sm-6">
+<form role="form" id="productform" action="/contractreports">
+   <div class="form-group">
+      <label for="name">合同号</label>
+      <select class="form-control" name="contractid">
+      	 @foreach ($contracts as $contract)
+         <option> {{ $contract->contract_id}}</option>
+         @endforeach
+      </select>
+
+      <label for="name">日期范围</label>
+        <input type="text" class="form-control" name="begintime" 
+            placeholder="开始日期">~
+          <input type="text" class="form-control" name="endtime" 
+            placeholder="结束日期">   
+        <button type="submit" class="btn btn-default" target="_blank">生成提点报表</button>
+   </div>
+</form>
+ </div>  
  </div>  
 @stop
 @section('bootor')

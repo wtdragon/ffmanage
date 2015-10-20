@@ -42,6 +42,9 @@
             <br>
             直接领导编码
 	     <input type="text" name="leader_id" class="form-control" required="required" value="{{ $position->leader_id }}">
+             <br>
+                               层次
+	      <input type="text" name="depth" class="form-control" required="required" value="{{ $position->depth }}">
             <button class="btn btn-lg btn-info">编辑职位信息</button>
                        </form>
  

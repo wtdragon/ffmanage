@@ -63,6 +63,7 @@ class PositionsController extends Controller
 		$position->end_date = Input::get('end_date');
 		$position->employee_id = Input::get('employee_id');
 		$position->leader_id = Input::get('leader_id');
+		$position->depth =Input::get('depth');
 		$position->user_id = $loggeduser->id;//Auth::user()->id;
 
 		if ($position->save()) {

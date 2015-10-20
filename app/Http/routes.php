@@ -45,4 +45,21 @@ Route::resource('products', 'ProductsController');
 
 Route::resource('customers', 'CustomersController');
 
+//生成报表
+
+Route::resource('reports', 'ReportsController');
+
+Route::get('prodreports',[
+		'as'=>'prodreports',
+		'uses'=>'ReportsController@prodreports'
+	]);
+	
+Route::get('contractreports',[
+		'as'=>'contractreports',
+		'uses'=>'ReportsController@contractreports'
+	]);	
+Route::get('download/{filename}',[
+		'as'=>'download',
+		'uses'=>'ReportsController@download'
+	]);	
  

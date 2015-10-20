@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+ 
+use Illuminate\Contracts\Routing\ResponseFactory;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\m_product,App\t_contract,App\m_customer,App\m_employee,App\t_interestdetail,App\m_position;
@@ -15,13 +18,24 @@ class ReportsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+      protected $response;
+	  
+      public function __construct(ResponseFactory  $response)
+    {
+        $this->response = $response;
+    } 
+	
+	
     public function index()
     {
         //
          $loggeduser=\App::make('authenticator')->getLoggedUser();
 		if (array_key_exists('_account',$loggeduser->permissions)){
 			$products=m_product::all();
-			 return view('reports.index')->withProducts($products);
+			$contracts=t_contract::all();
+			 return view('reports.index')->withProducts($products)
+			                             ->withContracts($contracts);;
 		}
 		else return "you not have permission";
     }
@@ -136,5 +150,92 @@ class ReportsController extends Controller
 		$product->delete();
 
 		return Redirect::to('products');
+    }
+	 /**
+     * post product infro and the begin time
+	 * end time
+     * return the reports for products
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function prodreports()
+    {
+        //
+        $productname = Input::get('productname');
+		$begintime = Input::get('begintime');
+		$endtime = Input::get('endtime');
+       $product=m_product::where('product_name',$productname)->first();
+	    
+	   $contracts=t_contract::where('product_id',$product->product_id)->get();
+	   $filename=$product->product_id+time();
+	   \Excel::create($filename, function($excel) use ($productname, $contracts) {
+          
+         $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+         
+        $sheet->loadView('pdreport') 
+                            ->withProductname($productname)
+	                        ->withContracts($contracts);
+
+    });
+
+       })->download('xls');
+       return \View::make('reports.products')->withProductname($productname)
+	                                         ->withContracts($contracts)
+											 ->withFilename($filename);
+    }
+	 /**
+     * post contracts infro and the begin time
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function contractreports()
+    {
+        //
+         $contractid = Input::get('contractid');
+		$begintime = Input::get('begintime');
+		$endtime = Input::get('endtime');
+         
+	   $contract=t_contract::where('contract_id',$contractid)->first();
+	   $product=m_product::where('product_id',$contract->product_id)->first();
+	   
+	   $sale=m_employee::find($contract->sales_id);
+	   $position=m_position::where('employee_id',$sale->id)->first();
+	   $parents = $position->ancestors()->get();
+	     $filename=$product->product_id+time();
+	    \Excel::create($filename, function($excel) use ($product, $parents,$position,$contract) {
+          
+         $excel->sheet('New sheet', function($sheet)  use ($product, $parents,$position,$contract) {
+         
+        $sheet->loadView('contract') 
+                            ->withProduct($product)
+	                                         ->withParents($parents)
+											  ->withPosition($position)
+	                                         ->withContract($contract);
+
+    });
+
+       })->download('xls');
+       return \View::make('reports.contracts')->withProduct($product)
+	                                         ->withParents($parents)
+											  ->withPosition($position)
+	                                         ->withContract($contract) ;
+ 
+
+    }
+	 /**
+     * post contracts infro and the begin time
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function dowload($filename)
+    {
+        //
+        $file= app_path() . "/storage/exports/" . $filename . ".xls";
+		var_dump($file);
+ 
+		 return $this->response->download($file);
+
     }
 }

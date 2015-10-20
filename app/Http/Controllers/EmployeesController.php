@@ -57,7 +57,7 @@ class EmployeesController extends Controller
 		$employee->position_id = Input::get('position_id');
 		$employee->user_id = $loggeduser->id;//Auth::user()->id;
 
-		if ($contract->save()) {
+		if ($employee->save()) {
 			return Redirect::to('employees');
 		} else {
 			return Redirect::back()->withInput()->withErrors('保存失败！');

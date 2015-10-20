@@ -39,6 +39,9 @@
             <br>
             员工编码
 	      <input type="text" name="employee_id" class="form-control" required="required">
+	       <br>
+                               层次
+	      <input type="text" name="depth" class="form-control" required="required">
             <br>
             直接领导编码
 	     <input type="text" name="leader_id" class="form-control" required="required">

@@ -138,6 +138,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         'LaravelAcl\Authentication\AuthenticationServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
 
         /*
          * Application Service Providers...
@@ -196,6 +197,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
+        'Form' => 'Collective\Html\FormFacade', 
+        'Html' => 'Collective\Html\HtmlFacade',
+        'Baum\Providers\BaumServiceProvider',
+        
 
     ],
 

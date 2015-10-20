@@ -25,7 +25,7 @@ DD {
 	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
 }
 #wrap {
-	width: 960px;margin-right: auto;margin-left: auto;
+	width: 100%;margin-right: auto;margin-left: auto;
 }
 #top {
 	background: url(images/top_bg.jpg) no-repeat left;float: left;width: 1000px;
@@ -49,7 +49,7 @@ DD {
 	color: #FFFFFF;text-decoration: none;font-size: 14px;font-weight: bold;
 }
 #main {
-	float: left;width: 1000px;border: 10px solid #1297D1;background: #FFF url(images/line.jpg) repeat-y left top;
+	float: left;width:100%;border: 10px solid #1297D1;background: #FFF url(images/line.jpg) repeat-y left top;
 }
 #main .mainleft {
 	float: left;width: 240px;padding-top: 80px;
@@ -81,7 +81,7 @@ h3{
 }
 h3 sub{font-family:Tahoma;font-size:12px;padding-left:10px;color:#CCC;font-weight:bold;}
 .content{
-	float: left;width: 660px;padding: 10px 0 0 20px;font-size: 14px;line-height: 20px;color: #333333;
+	float: left;width: 1000px;padding: 10px 0 0 20px;font-size: 14px;line-height: 20px;color: #333333;
 }
 
 h4 {padding-left:15px; line-height:2em; margin-bottom:0.5em; border-bottom:1px dotted #BAC6D8; color:#195A95; background:transparent url(images/dot.gif) no-repeat 5px 50%; } 
@@ -143,5 +143,5 @@ TEXTAREA {
 }
 
 #footer {
-	float: left;height: 30px;width: 960px;padding-top: 20px;text-align: center;font-size: 12px;line-height: 20px;color: #666;
+	float: left;height: 30px;width: 100%;padding-top: 20px;text-align: center;font-size: 12px;line-height: 20px;color: #666;
 }

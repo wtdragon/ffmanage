@@ -33,7 +33,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="container" style="width:100%">
 	 <div id="wrap">
  <div id="top">
 
@@ -51,14 +51,13 @@
  <div id="main" style="height: 1000px;">
   <div class="mainleft">
    <ul>
-    <li><a href="/intrests">分红明细 <span class="en">Newest Record</span></a></li>
-	 <li><a href="/contracts">合同记录 <span class="en">Contract_rec</span></a></li>
-	 <li><a href="/products">产品信息 <span class="en">Company</span></a></li>
-    <li><a href="/customers">客户信息 <span class="en">Customer</span></a></li>
-    <li><a href="/employees">员工信息<span class="en">Company</span></a></li>
-        <li><a href="/positions">职位信息 <span class="en">Customer</span></a></li>
- <li><a href="/reports">生成报表 <span class="en">Customer</span></a></li>
- 
+    <li><a href="/intrests">客户分红明细 <span class="en"></span></a></li>
+	 <li><a href="/contracts">合同记录 <span class="en"></span></a></li>
+	 <li><a href="/products">产品信息 <span class="en"></span></a></li>
+    <li><a href="/customers">客户信息 <span class="en"></span></a></li>
+    <li><a href="/employees">员工信息<span class="en"></span></a></li>
+        <li><a href="/positions">职位信息 <span class="en"></span></a></li>
+         <li><a href="/reports">生成明细报表 <span class="en"></span></a></li> 
    </ul>
   </div>
   <div class="mainright">
@@ -69,7 +68,7 @@
  </div>
  
  
-		<div class="footer center">
+		<div id="footer">
 			<p> <strong>XXX有限公司</strong></p>
 			<p class='center'>版权所有</p>
  

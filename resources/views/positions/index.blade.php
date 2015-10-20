@@ -6,6 +6,7 @@
 <table class="table table-bordered">
 <thead>
 <tr>
+<th>职称编码</th>	
 <th>职称</th>
 <th>部门编码</th>
 <th>部门名称</th>
@@ -19,7 +20,7 @@
 <tbody>
  @foreach ($positions as $position)
 <tr>
-	
+<td>{{ $position->id}}</td>	
 <td>{{ $position->position_name}}</td>
 <td>{{ $position->department_id }}</td>
 <td>{{ $position->department_name}}</td>

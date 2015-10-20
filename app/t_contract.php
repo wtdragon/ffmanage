@@ -17,6 +17,6 @@ public function product()
 }
  public function employee()
 {
-    return $this->belongsTo('App\t_employee', 'sales_id');
+    return $this->belongsTo('App\m_employee', 'sales_id');
 }
 }
