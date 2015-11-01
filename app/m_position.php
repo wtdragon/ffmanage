@@ -27,4 +27,8 @@ class m_position extends \Baum\Node
 {
     return $this->belongsTo('App\m_employee', 'employee_id');
 }
+public function leader()
+{
+    return $this->belongsTo('App\m_employee', 'leader_id');
+}
 }

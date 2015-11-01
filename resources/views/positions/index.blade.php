@@ -12,8 +12,8 @@
 <th>部门名称</th>
 <th>开始日期</th>
 <th>结束日期</th>
-<th>员工编码</th>
-<th>直接领导编码</th>
+<th>员工姓名</th>
+<th>直接领导</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -26,8 +26,8 @@
 <td>{{ $position->department_name}}</td>
 <td>{{ $position->start_date }}</td>
 <td>{{ $position->end_date}}</td>
-<td>{{ $position->employee_id }}</td>
-<td>{{ $position->leader_id}}</td>
+<td>{{ $position->employee->employee_name }}</td>
+<td>{{ $position->leader->employee_name}}</td>
 <td><a href="{{ URL::route('positions.edit', $position->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 <form action="{{ URL('positions/'.$position->id) }}" method="POST" style="display: inline;">
               <input name="_method" type="hidden" value="DELETE">

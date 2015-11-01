@@ -26,16 +26,16 @@
             <input type="text" name="position_name" class="form-control" required="required" value="{{ $position->position_name }}">
             <br>
             部门编码
-             <input type="date" name="department_id" class="form-control" required="required" value="{{ $position->department_id }}">
+             <input type="text" name="department_id" class="form-control" required="required" value="{{ $position->department_id }}">
             <br>
             部门名称
-	      <input type="date" name="department_name" class="form-control" required="required" value="{{ $position->department_name }}">
+	      <input type="text" name="department_name" class="form-control" required="required" value="{{ $position->department_name }}">
             <br>
             开始日期
-	      <input type="text" name="start_date" class="form-control" required="required" value="{{ $position->start_date }}">
+	      <input type="date" name="start_date" class="form-control" required="required" value="{{ $position->start_date }}">
             <br>
             结束日期
-	     <input type="text" name="end_date" class="form-control" required="required" value="{{ $position->end_date }}">
+	     <input type="date" name="end_date" class="form-control" required="required" value="{{ $position->end_date }}">
             <br>
             员工编码
 	      <input type="text" name="employee_id" class="form-control" required="required" value="{{ $position->employee_id }}">

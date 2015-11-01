@@ -53,7 +53,7 @@
 	      <input type="text" name="invest_time" class="form-control" required="required">
             <br>
             渠道提成(%)
-	     <input type="date" name="channel_cut" class="form-control" required="required">
+	     <input type="text" name="channel_cut" class="form-control" required="required">
             <br>
             <button class="btn btn-lg btn-info">新增合同</button>
           </form>
