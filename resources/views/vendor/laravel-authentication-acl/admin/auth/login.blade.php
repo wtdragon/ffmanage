@@ -7,7 +7,7 @@ Admin login
         <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title bariol-thin">Login to {!!Config::get('acl_base.app_name')!!}</h3>
+                    <h3 class="panel-title bariol-thin">登录 {!!Config::get('acl_base.app_name')!!}</h3>
                 </div>
                 <?php $message = Session::get('message'); ?>
                 @if( isset($message) )
@@ -25,7 +25,7 @@ Admin login
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    {!! Form::email('email', '', ['id' => 'email', 'class' => 'form-control', 'placeholder' => 'Email address', 'required', 'autocomplete' => 'off']) !!}
+                                    {!! Form::email('email', '', ['id' => 'email', 'class' => 'form-control', 'placeholder' => '邮件地址', 'required', 'autocomplete' => 'off']) !!}
                                 </div>
                             </div>
                         </div>
@@ -35,18 +35,18 @@ Admin login
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    {!! Form::password('password', ['id' => 'password', 'class' => 'form-control', 'placeholder' => 'Password', 'required', 'autocomplete' => 'off']) !!}
+                                    {!! Form::password('password', ['id' => 'password', 'class' => 'form-control', 'placeholder' => '密码', 'required', 'autocomplete' => 'off']) !!}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {!! Form::label('remember','Remember me') !!}
+                    {!! Form::label('remember','记住我') !!}
                     {!! Form::checkbox('remember') !!}
-                    <input type="submit" value="Login" class="btn btn-info btn-block">
+                    <input type="submit" value="登录" class="btn btn-info btn-block">
                     {!! Form::close() !!}
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 margin-top-10">
-                            {!! link_to_route('user.reminder.process','Forgot password?') !!}
+                            {!! link_to_route('user.reminder.process','忘记密码') !!}
                        </div>
                    </div>
                 </div>
