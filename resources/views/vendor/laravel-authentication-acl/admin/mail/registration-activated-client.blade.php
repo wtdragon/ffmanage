@@ -11,7 +11,7 @@
 <div>
     <h3>Dear: {!! $body['email'] !!}</h3>
     <strong>Your email has been confirmed succesfully.</strong>
-    You can now 登录 the website using the
+    You can now login to the website using the
     <a href="{!! URL::to('/login') !!}">Following link</a>.
 </div>
 </body>

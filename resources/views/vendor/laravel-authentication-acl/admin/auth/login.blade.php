@@ -25,7 +25,7 @@ Admin login
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    {!! Form::email('email', '', ['id' => 'email', 'class' => 'form-control', 'placeholder' => 'Email地址', 'required', 'autocomplete' => 'off']) !!}
+                                    {!! Form::email('email', '', ['id' => 'email', 'class' => 'form-control', 'placeholder' => 'Email address', 'required', 'autocomplete' => 'off']) !!}
                                 </div>
                             </div>
                         </div>
@@ -35,12 +35,12 @@ Admin login
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    {!! Form::password('password', ['id' => 'password', 'class' => 'form-control', 'placeholder' => '密码', 'required', 'autocomplete' => 'off']) !!}
+                                    {!! Form::password('password', ['id' => 'password', 'class' => 'form-control', 'placeholder' => 'Password', 'required', 'autocomplete' => 'off']) !!}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {!! Form::label('remember','记住我') !!}
+                    {!! Form::label('remember','Remember me') !!}
                     {!! Form::checkbox('remember') !!}
                     <input type="submit" value="Login" class="btn btn-info btn-block">
                     {!! Form::close() !!}

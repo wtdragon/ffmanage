@@ -9,13 +9,13 @@
 <h2>Welcome to: {!! Config::get('acl_base.app_name') !!}</h2>
 <div>
     <h3>Dear: {!! $body['first_name'] !!}</h3>
-    <strong>You account has been created.</strong> You can now 登录 the website using the
+    <strong>You account has been created.</strong> You can now login to the website using the
     <a href="{!! URL::to('/login') !!}">Following link</a>.
     <br/>
     <strong>Please find your account details below: </strong>
     <ul>
         <li>Username: {!! $body['email']!!}</li>
-        <li>password: {!! $body['password']!!}</li>
+        <li>Password: {!! $body['password']!!}</li>
     </ul>
 </div>
 </body>

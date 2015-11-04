@@ -43,7 +43,7 @@ Admin area: edit user
                     <span class="text-danger">{!! $errors->first('email') !!}</span>
                     <!-- password text field -->
                     <div class="form-group">
-                        {!! Form::label('password',isset($user->id) ? "Change password: " : "password: ") !!}
+                        {!! Form::label('password',isset($user->id) ? "Change password: " : "Password: ") !!}
                         {!! Form::password('password', ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => '']) !!}
                     </div>
                     <span class="text-danger">{!! $errors->first('password') !!}</span>
