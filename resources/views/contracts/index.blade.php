@@ -44,8 +44,8 @@
 <form action="{{ URL('contracts/'.$contract->id) }}" method="POST" style="display: inline;">
               <input name="_method" type="hidden" value="DELETE">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <button type="submit" class="btn btn-danger">删除</button>
-            </form>
+              <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete" data-title="删除" data-message="确认要删除此数据吗 ?">删除</button>
+</form>
 </td>
 </tr>
 @endforeach
@@ -54,6 +54,7 @@
 <a href="{{ URL::route('contracts.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
  
  </div>  
+ @include('delconfirm')
 @stop
 @section('bootor')
 @stop
