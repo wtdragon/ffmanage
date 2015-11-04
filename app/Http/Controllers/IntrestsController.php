@@ -10,20 +10,22 @@ use Redirect, Input;
 
 class IntrestsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+	  public function __construct()
+    {
+        $this->middleware('ckp');
+    }
+	 
+	 
     public function index()
     {
-        //
-        $loggeduser=\App::make('authenticator')->getLoggedUser();
-		if (array_key_exists('_account',$loggeduser->permissions)){
-			$intrests=t_interestdetail::all();
+        //   $loggeduser=\App::make('authenticator')->getLoggedUser();	
+    	     
+    	      	
+        	$intrests=t_interestdetail::all();
 			 return view('intrests.index')->withIntrests($intrests);
-		}
-		else return "you not have permission";
+			  
+		 
     }
 
     /**

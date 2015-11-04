@@ -9,6 +9,11 @@ use App\m_position;
 use Redirect, Input;
 class PositionsController extends Controller
 {
+	 public function __construct()
+    {
+        $this->middleware('ckp');
+    }
+	    
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +22,9 @@ class PositionsController extends Controller
     public function index()
     {
         //
-          $loggeduser=\App::make('authenticator')->getLoggedUser();
-		if (array_key_exists('_account',$loggeduser->permissions)){
-			$positions=m_position::all();
+          	$positions=m_position::all();
 			 return view('positions.index')->withPositions($positions);
-		}
-		else return "you not have permission";
+		 
     }
 
     /**

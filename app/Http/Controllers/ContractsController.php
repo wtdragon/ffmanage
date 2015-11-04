@@ -9,6 +9,11 @@ use App\t_contract;
 use Redirect, Input;
 class ContractsController extends Controller
 {
+	 public function __construct()
+    {
+        $this->middleware('ckp');
+    }
+	 
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +22,10 @@ class ContractsController extends Controller
     public function index()
     {
         //
-         $loggeduser=\App::make('authenticator')->getLoggedUser();
-		if (array_key_exists('_account',$loggeduser->permissions)){
-			$contracts=t_contract::all();
+        
+       $contracts=t_contract::all();
 			 return view('contracts.index')->withContracts($contracts);
-		}
-		else return "you not have permission";
+		 
     }
 
     /**

@@ -9,6 +9,11 @@ use App\m_customer;
 use Redirect, Input;
 class CustomersController extends Controller
 {
+	 public function __construct()
+    {
+        $this->middleware('ckp');
+    }
+	    
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +22,9 @@ class CustomersController extends Controller
     public function index()
     {
         //
-         $loggeduser=\App::make('authenticator')->getLoggedUser();
-		if (array_key_exists('_account',$loggeduser->permissions)){
-			$customers=m_customer::all();
+          	$customers=m_customer::all();
 			 return view('customers.index')->withCustomers($customers);
-		}
-		else return "you not have permission";
+		 
     }
 
     /**

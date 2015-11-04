@@ -8,7 +8,11 @@ use App\Http\Controllers\Controller;
 use App\m_employee;
 use Redirect, Input;
 class EmployeesController extends Controller
-{
+{    public function __construct()
+    {
+        $this->middleware('ckp');
+    }
+	 
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +21,9 @@ class EmployeesController extends Controller
     public function index()
     {
         //
-         $loggeduser=\App::make('authenticator')->getLoggedUser();
-		if (array_key_exists('_account',$loggeduser->permissions)){
-			$employees=m_employee::all();
+         	$employees=m_employee::all();
 			 return view('employees.index')->withEmployees($employees);
-		}
-		else return "you not have permission";
+		 
     }
 
     /**

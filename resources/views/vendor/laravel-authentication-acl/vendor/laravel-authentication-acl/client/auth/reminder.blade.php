@@ -1,13 +1,13 @@
 @extends('laravel-authentication-acl::client.layouts.base')
 @section ('title')
-    Password recovery
+    password recovery
 @stop
 @section('content')
 <div class="row centered-form">
     <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">Password recovery</h3>
+                <h3 class="panel-title">password recovery</h3>
             </div>
             @if($errors && ! $errors->isEmpty() )
             @foreach($errors->all() as $error)

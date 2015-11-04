@@ -19,15 +19,16 @@ class ACLMiddleware
     	$authentication = \App::make('authentication_helper');
 		 if($loggeduser) 
 		 {
-		 	if (array_key_exists('_account',$loggeduser->permissions)){
-				 return redirect('account');
+		 	if (array_key_exists('_branch',$loggeduser->permissions)){
+				 return redirect('contracts');
 			}
-			else {
-				return view('home');
+			elseif(array_key_exists('_account',$loggeduser->permissions)) {
+				return redirect('contracts');
+			}
+			else{
+				return redirect('login');
 			}
 		 }  
 		 else { return redirect('login');}
-		
-        return $next($request);
     }
 }

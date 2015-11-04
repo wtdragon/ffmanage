@@ -9,6 +9,10 @@ use App\m_product;
 use Redirect, Input;
 class ProductsController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('ckp');
+    }   
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +21,9 @@ class ProductsController extends Controller
     public function index()
     {
         //
-         $loggeduser=\App::make('authenticator')->getLoggedUser();
-		if (array_key_exists('_account',$loggeduser->permissions)){
-			$products=m_product::all();
+         	$products=m_product::all();
 			 return view('products.index')->withProducts($products);
-		}
-		else return "you not have permission";
+		 
     }
 
     /**

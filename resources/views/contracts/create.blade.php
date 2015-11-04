@@ -25,13 +25,13 @@
              合同编码
             <input type="text" name="contract_id" class="form-control" required="required">
             <br>
-         产品编码
+         产品名称
             <input type="text" name="product_id" class="form-control" required="required">
             <br>       
-            客户编码
+            客户名称
              <input type="text" name="customer_id" class="form-control" required="required">
             <br>
-            销售人员编码
+            销售人员名称
 	      <input type="text" name="sales_id" class="form-control" required="required">
             <br>
             付款方式

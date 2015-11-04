@@ -6,11 +6,16 @@
 <table class="table table-bordered">
 <thead>
 <tr>
-<th>合同号</th>
+<th>合同编号</th>
+<th>客户名称</th>
+<th>已分红期数</th>
+<th>未分红期数</th>
+<th>总期数</th>
 <th>计划结息日</th>
 <th>实际结息日</th>
+<th>本金金额</th>
 <th>利息金额</th>
-<th>月利率%</th>
+<th>年利率%</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -19,8 +24,13 @@
 <tr>
 	
 <td>{{ $intrest->contract_id}}</td>
+<td>{{ $intrest->customer_name }}</td>
+<td>{{ $intrest->bonused_time}}</td>
+<td>{{ $intrest->rest_time }}</td>
+<td>{{ $intrest->total_time}}</td>
 <td>{{ $intrest->planinterest_date }}</td>
 <td>{{ $intrest->realinterest_date}}</td>
+<td>{{ $intrest->principal_money }}</td>
 <td>{{ $intrest->interests_money }}</td>
 <td>{{ $intrest->rate_bymonth}}%</td>
 <td><a href="{{ URL::route('intrests.edit', $intrest->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
@@ -34,8 +44,6 @@
 @endforeach
 </tbody>
 </table>
-<a href="{{ URL::route('intrests.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
- 
  </div>  
 @stop
 @section('bootor')

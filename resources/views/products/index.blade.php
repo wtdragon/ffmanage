@@ -8,8 +8,7 @@
 <tr>
 <th>产品编码</th>
 <th>产品名称</th>
-<th>开始日期</th>
-<th>结束日期</th>
+<th>职位提点</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -18,8 +17,7 @@
 <tr>
 <td>{{ $product->product_id}}</td>	
 <td>{{ $product->product_name}}</td>
-<td>{{ $product->start_date }}</td>
-<td>{{ $product->end_date}}</td>
+<td>{{ $product->pos_intrests }}</td>
 
 <td><a href="{{ URL::route('products.edit', $product->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 <form action="{{ URL('products/'.$product->id) }}" method="POST" style="display: inline;">

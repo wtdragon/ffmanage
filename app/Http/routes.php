@@ -16,14 +16,15 @@
 //});
 
 
-Route::get('/', function (){
-	return view('home');
-}      
-);
+Route::get('/', [
+ 
+	    'middleware' => 'acl'
+ 
+	]);
 
 //分红信息
 
-Route::resource('intrests', 'IntrestsController');
+Route::resource('intrests','IntrestsController');
 
 //合同记录
 
@@ -43,7 +44,7 @@ Route::resource('products', 'ProductsController');
 
 //客户记录
 
-Route::resource('customers', 'CustomersController');
+Route::resource('customers','CustomersController');
 
 //生成报表
 

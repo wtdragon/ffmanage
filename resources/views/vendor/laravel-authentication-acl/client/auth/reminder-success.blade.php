@@ -1,6 +1,6 @@
 @extends('laravel-authentication-acl::client.layouts.base-fullscreen')
 @section ('title')
-Password recovery
+password recovery
 @stop
 @section('content')
 <div class="row">
