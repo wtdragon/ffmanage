@@ -26,8 +26,7 @@ DD {
 	MARGIN-LEFT: auto; WIDTH: 960px; MARGIN-RIGHT: auto
 }
 #top {
-	BACKGROUND: url(http://www.bzw123.com/about/images/top_bg.jpg) no-repeat left 50%; FLOAT: left; WIDTH: 960px; HEIGHT: 138px
-}
+	 }
 #top .logo {
 	FLOAT: left; WIDTH: 257px; PADDING-TOP: 20px; HEIGHT: 84px
 }
@@ -59,7 +58,7 @@ DD {
 	FLOAT: left; WIDTH: 214px; HEIGHT: 50px
 }
 #main .mainleft UL LI A {
-	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 24px; FONT-SIZE: 16px; PADDING-BOTTOM: 0px; COLOR: #333; LINE-HEIGHT: 22px; PADDING-TOP: 10px; FONT-FAMILY: "Î¢ÈíÑÅºÚ"; HEIGHT: 30px; TEXT-DECORATION: none
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 24px; FONT-SIZE: 16px; PADDING-BOTTOM: 0px; COLOR: #333; LINE-HEIGHT: 22px; PADDING-TOP: 10px; FONT-FAMILY: "Î¢ï¿½ï¿½ï¿½Åºï¿½"; HEIGHT: 30px; TEXT-DECORATION: none
 }
 #main .mainleft UL LI A:hover {
 	DISPLAY: block; COLOR: #9d1600; BACKGROUND-COLOR: #fff

@@ -25,9 +25,6 @@
             职称
             <input type="text" name="position_name" class="form-control" required="required" value="{{ $position->position_name }}">
             <br>
-            部门编码
-             <input type="text" name="department_id" class="form-control" required="required" value="{{ $position->department_id }}">
-            <br>
             部门名称
 	      <input type="text" name="department_name" class="form-control" required="required" value="{{ $position->department_name }}">
             <br>
@@ -37,15 +34,13 @@
             结束日期
 	     <input type="date" name="end_date" class="form-control" required="required" value="{{ $position->end_date }}">
             <br>
-            员工编码
+            员工姓名
 	      <input type="text" name="employee_id" class="form-control" required="required" value="{{ $position->employee_id }}">
             <br>
-            直接领导编码
+            直接领导
 	     <input type="text" name="leader_id" class="form-control" required="required" value="{{ $position->leader_id }}">
              <br>
-                               层次
-	      <input type="text" name="depth" class="form-control" required="required" value="{{ $position->depth }}">
-            <button class="btn btn-lg btn-info">编辑职位信息</button>
+             <button class="btn btn-lg btn-info">编辑职位信息</button>
                        </form>
  
  

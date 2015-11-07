@@ -64,8 +64,9 @@ class ContractsController extends Controller
         $loggeduser=\App::make('authenticator')->getLoggedUser();
 		$contract = new t_contract;
 		$contract->contract_id = Input::get('contract_id');
-		$contract->product_id= Input::get('product_name');
+		$contract->product_id= Input::get('product_id');
 		$contract->customer_id = Input::get('customer_id');
+		 
 		$contract->sales_id = Input::get('sales_id');
 		$contract->pay_mothod = Input::get('pay_mothod');
 		$contract->pay_date = Input::get('pay_date');
@@ -78,21 +79,7 @@ class ContractsController extends Controller
 		$contract->other = Input::get('other');
 		$contract->user_id = $loggeduser->id;//Auth::user()->id;
         
-        
-        $contract = new t_contract;
-		$contract->contract_id = Input::get('contract_id');
-		$contract->product_id = Input::get('product_id');
-		$contract->customer_id = Input::get('customer_id');
-		$contract->sales_id = Input::get('sales_id');
-		$contract->pay_mothod = Input::get('pay_mothod');
-		$contract->pay_date = Input::get('pay_date');
-		$contract->pay_time = Input::get('pay_time');
-		$contract->deal_money = Input::get('deal_money');
-		$contract->profit_byyear = Input::get('profit_byyear');
-		$contract->invest_time = Input::get('invest_time');
-		$contract->channel_cut = Input::get('channel_cut');
-		$contract->user_id = $loggeduser->id;//Auth::user()->id;
-        
+       
         
 		if ($contract->save()) {
 			return Redirect::to('contracts');
@@ -121,7 +108,14 @@ class ContractsController extends Controller
     public function edit($id)
     {
         //
-          return view('contracts.edit')->withContract(t_contract::find($id));
+          $loggeduser=\App::make('authenticator')->getLoggedUser();
+         $products=m_product::all();
+		 $customers=m_customer::where('user_id',$loggeduser->id)->get();
+		 $sales=m_employee::where('user_id',$loggeduser->id)->get();
+         return view('contracts.edit')->withContract(t_contract::find($id))
+		                              ->withProducts($products)
+		                              ->withCustomers($customers)
+									  ->withSales($sales);;
     }
 
     /**
@@ -141,7 +135,6 @@ class ContractsController extends Controller
 			'sales_id' => 'required',
 			'pay_mothod' => 'required',
 			'pay_date' => 'required',
-			'pay_time' => 'required',
 			'deal_money' => 'required',
 			'profit_byyear' => 'required',
 			'invest_time' => 'required',
@@ -157,9 +150,11 @@ class ContractsController extends Controller
 		$contract->pay_date = Input::get('pay_date');
 		$contract->pay_time = Input::get('pay_time');
 		$contract->deal_money = Input::get('deal_money');
+		$contract->intrests_start_date = Input::get('intrests_start_date');
 		$contract->profit_byyear = Input::get('profit_byyear');
 		$contract->invest_time = Input::get('invest_time');
 		$contract->channel_cut = Input::get('channel_cut');
+		$contract->other = Input::get('other');
 		$contract->user_id = $loggeduser->id;//Auth::user()->id;
 
 		if ($contract->save()) {

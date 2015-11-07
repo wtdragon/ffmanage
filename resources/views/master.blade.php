@@ -37,10 +37,16 @@
 	 <div id="wrap">
  <div id="top">
 
- <div id="nav">
-  <ul>
-  		@if(App::make('authenticator')->getLoggedUser())
-    
+ <div id="nav" class="right">
+
+ @if(App::make('authenticator')->getLoggedUser())
+ <?php $loggeduser=\App::make('authenticator')->getLoggedUser();
+ $usergroup=App\UserGroup::where('user_id',$loggeduser->id)->first();
+ $groupname=$usergroup->group->name;
+  	?>
+         {{$loggeduser->email }} 
+         {{$groupname }} 
+            <ul>
          <li><a href="{{URL::to('user/logout')}}">登出</a></li> 
 @else
          <li><a href="{{URL::to('login')}}">登录</a></li>

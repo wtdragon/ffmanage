@@ -28,8 +28,8 @@
 <tr>
 <td>{{ $contract->contract_id}}</td>	
 <td>{{ $contract->product_id}}</td>
-<td>{{ $contract->customer_id }}</td>
-<td>{{ $contract->sales_id}}</td>
+<td>{{ $contract->customer->customer_name }}</td>
+<td>{{ $contract->employee->employee_name}}</td>
 <td>{{ $contract->pay_mothod }}</td>
 <td>{{ $contract->pay_date}}</td>
 <td>{{ $contract->intrests_start_date}}</td>
@@ -37,7 +37,10 @@
 <td>{{ $contract->deal_money }}</td>
 <td>{{ $contract->profit_byyear}}</td>
 <td>{{ $contract->invest_time }}</td>
-<td>{{ $contract->achive_money }}</td>
+ <?php $archivemoney=0;
+        $archivemoney=$contract->deal_money*$contract->invest_time/12;
+	  ?>
+<td>{{ round($archivemoney,2) }}万元</td>
 <td>{{ $contract->channel_cut}}%</td>
 <td>{{ $contract->other }}</td>
 <td><a href="{{ URL::route('contracts.edit', $contract->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>

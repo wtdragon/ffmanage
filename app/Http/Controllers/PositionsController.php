@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\m_position;
+use App\m_position,App\m_employee;
 use Redirect, Input;
 class PositionsController extends Controller
 {
@@ -22,7 +22,14 @@ class PositionsController extends Controller
     public function index()
     {
         //
-          	$positions=m_position::all();
+             $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	    $positions=m_position::where('user_id',$loggeduser->id)->orWhere('leader_id','=',0)->get();	
+			}
+			else {
+				$positions=m_position::all();
+			}
+          	 
 			 return view('positions.index')->withPositions($positions);
 		 
     }
@@ -35,7 +42,11 @@ class PositionsController extends Controller
     public function create()
     {
         //
-        return view('positions.create');
+        $loggeduser=\App::make('authenticator')->getLoggedUser();
+        $sales=m_employee::where('user_id',$loggeduser->id)->get();
+        $leaders=m_position::where('user_id',$loggeduser->id)->orWhere('leader_id','=',0)->get();
+        return view('positions.create')->withLeaders($leaders)
+									   ->withSales($sales);
     }
 
     /**
@@ -49,9 +60,8 @@ class PositionsController extends Controller
         //
            $this->validate($request, [
 			'position_name' => 'required',
-			'department_id' => 'required',
 			'department_name' => 'required',
-				'start_date' => 'required',
+			'start_date' => 'required',
 			'end_date' => 'required',
 			'employee_id' => 'required',
 			'leader_id' => 'required',

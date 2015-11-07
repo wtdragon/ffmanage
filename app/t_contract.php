@@ -13,7 +13,7 @@ public function product()
 }
  public function customer()
 {
-    return $this->belongsTo('App\t_customer', 'customer_id');
+    return $this->belongsTo('App\m_customer', 'customer_id');
 }
  public function employee()
 {

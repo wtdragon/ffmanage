@@ -20,9 +20,15 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        //
-         	$employees=m_employee::all();
-			 return view('employees.index')->withEmployees($employees);
+        //  
+            $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	    $employees= m_employee::where('user_id',$loggeduser->id)->get();	
+			}
+			else {
+				$employees=m_employee::all();
+			}
+         	return view('employees.index')->withEmployees($employees);
 		 
     }
 
@@ -98,14 +104,12 @@ class EmployeesController extends Controller
         //
         $this->validate($request, [
 			'employee_name' => 'required',
-			'gender' => 'required',
-			'position_id' => 'required',
+			'gender' => 'required', 
 		]);
          $loggeduser=\App::make('authenticator')->getLoggedUser();
 		$contract = m_employee::find($id);
 		$contract->employee_name = Input::get('employee_name');
-		$contract->gender = Input::get('gender');
-		$contract->position_id = Input::get('position_id');
+		$contract->gender = Input::get('gender'); 
 		$contract->user_id = $loggeduser->id;//Auth::user()->id;
 
 		if ($contract->save()) {

@@ -21,9 +21,14 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        //
-          	$customers=m_customer::all();
-			 return view('customers.index')->withCustomers($customers);
+           $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	    $customers= m_customer::where('user_id',$loggeduser->id)->get();	
+			}
+			else {
+				$customers=m_customer::all();
+			}
+          	  return view('customers.index')->withCustomers($customers);
 		 
     }
 

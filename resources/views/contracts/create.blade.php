@@ -39,7 +39,7 @@
             <div class="form-group"> 
   <select class="form-control" name="customer_id">
   	@foreach($customers as $customer)
-      <option value="{{$customer->customer_id}}">{{$customer->customer_name}}</option>
+      <option value="{{$customer->id}}">{{$customer->customer_name}}</option>
     @endforeach
   </select>  
   </div>
@@ -49,7 +49,7 @@
             <div class="form-group"> 
   <select class="form-control" name="sales_id">
   	@foreach($sales as $sale)
-      <option value="{{$sale->employee_id}}">{{$sale->employee_name}}</option>
+      <option value="{{$sale->id}}">{{$sale->employee_name}}</option>
     @endforeach
   </select>  
   </div>
@@ -119,11 +119,11 @@
        
       var $selectd= $("#paymethod option:selected").text();
       if ($selectd === 'pos'){
-         $("#paytime").removeClass("hidden");
+         $("#pay_time").removeClass("hidden");
         
           }
       else{
-      	$("#paytime").addClass("hidden");
+      	$("#pay_time").addClass("hidden");
       }
     
 
