@@ -26,13 +26,13 @@
             <input type="text" name="contract_id" class="form-control" required="required" value="{{ $contract->contract_id }}">
             <br>
               产品名称
-            <input type="text" name="product_id" class="form-control" required="required" value="{{ $contract->product_id }}">
+            <input type="text" name="product_name" class="form-control" required="required" value="{{ $contract->product_id }}">
             <br>
             客户名称
-             <input type="text" name="customer_id" class="form-control" required="required" value="{{ $contract->customer_id }}">
+             <input type="text" name="customer_id" class="form-control" required="required" value="{{ $contract->customer_name }}">
             <br>
             销售人员名称
-	      <input type="text" name="sales_id" class="form-control" required="required" value="{{ $contract->sales_id }}">
+	      <input type="text" name="sales_id" class="form-control" required="required" value="{{ $contract->sales_name }}">
             <br>
             付款方式
 	      <input type="text" name="pay_mothod" class="form-control" required="required" value="{{ $contract->pay_mothod }}">
@@ -42,6 +42,9 @@
 	        <br>
 	                 付款时间
             <input type="time" name="pay_time" class="form-control" required="required" value="{{ $contract->pay_time }}">
+            <br>
+               起息日期
+            <input type="time" name="intrests_start_date" class="form-control" required="required" value="{{ $contract->intrests_start_date }}">
             <br>
             成交金额
              <input type="text" name="deal_money" class="form-control" required="required" value="{{ $contract->deal_money }}">
@@ -54,6 +57,9 @@
             <br>
             渠道提成(%)
 	     <input type="text" name="channel_cut" class="form-control" required="required" value="{{ $contract->channel_cut }}%">
+            <br>
+                           备注
+	     <input type="text" name="other" class="form-control" required="required" value="{{ $contract->other }}%">
             <br>
             <button class="btn btn-lg btn-info">修改合同</button>
                        </form>

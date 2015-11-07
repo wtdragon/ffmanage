@@ -22,9 +22,14 @@
 <tbody>
  @foreach ($intrests as $intrest)
 <tr>
-	
+<?php   
+       $parentcut=$contract->deal_money/100;
+       $tqt=($contract->deal_money*$contract->channel_cut)/100;
+	   $salescut=$contract->channel_cut-$position->depth;
+	   $salecutmoney=($contract->channel_cut-$position->depth)*$contract->deal_money/100;
+	  ?>	
 <td>{{ $intrest->contract_id}}</td>
-<td>{{ $intrest->customer_name }}</td>
+<td>{{ $intrest->customer->customer_name }}</td>
 <td>{{ $intrest->bonused_time}}</td>
 <td>{{ $intrest->rest_time }}</td>
 <td>{{ $intrest->total_time}}</td>

@@ -28,9 +28,6 @@
             性别
              <input type="text" name="gender" class="form-control" required="required" >
             <br>
-            职称编码
-	      <input type="text" name="position_id" class="form-control" required="required" >
-            <br>
             <button class="btn btn-lg btn-info">新增员工</button>
           </form>
 

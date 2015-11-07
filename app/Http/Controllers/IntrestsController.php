@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\t_interestdetail;
+use App\t_interestdetail,App\t_contract;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -13,17 +13,22 @@ class IntrestsController extends Controller
     
 	  public function __construct()
     {
-        $this->middleware('ckp');
+        $middle=$this->middleware('ckp');
+	 
     }
 	 
 	 
     public function index()
     {
-        //   $loggeduser=\App::make('authenticator')->getLoggedUser();	
-    	     
-    	      	
-        	$intrests=t_interestdetail::all();
-			 return view('intrests.index')->withIntrests($intrests);
+    	    $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	    $contracts= t_interestdetail::where('user_id',$loggeduser->id)->get();	
+			}
+			else {
+				$contracts=t_interestdetail::all();
+			}
+			 
+			return view('intrests.index')->withIntrests($contracts);
 			  
 		 
     }

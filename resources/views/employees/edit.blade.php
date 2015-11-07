@@ -28,10 +28,7 @@
             性别
              <input type="text" name="gender" class="form-control" required="required" value="{{ $employee->gender }}">
             <br>
-            职称编码
-	      <input type="text" name="position_id" class="form-control" required="required" value="{{ $employee->position_id }}">
-            <br>
-         
+          
             <button class="btn btn-lg btn-info">修改员工信息</button>
                        </form>
  

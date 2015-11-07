@@ -19,7 +19,6 @@
 <td>{{ $employee->id}}</td>	
 <td>{{ $employee->employee_name}}</td>
 <td>{{ $employee->gender }}</td>
-<td>{{ $employee->position_id}}</td>
 <td><a href="{{ URL::route('employees.edit', $employee->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 <form action="{{ URL('employees/'.$employee->id) }}" method="POST" style="display: inline;">
               <input name="_method" type="hidden" value="DELETE">

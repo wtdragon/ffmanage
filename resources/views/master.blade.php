@@ -48,7 +48,7 @@
   </ul>
  </div>
  </div>
- <div id="main" style="height: 1000px;">
+ <div id="main" style="height: auto;">
   <div class="mainleft">
    <ul>
     <li><a href="/intrests">客户分红明细 <span class="en"></span></a></li>

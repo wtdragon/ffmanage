@@ -49,13 +49,11 @@ class EmployeesController extends Controller
           $this->validate($request, [
 			'employee_name' => 'required',
 			'gender' => 'required',
-			'position_id' => 'required',
 		]);
          $loggeduser=\App::make('authenticator')->getLoggedUser();
 		$employee = new m_employee;
 		$employee->employee_name = Input::get('employee_name');
 		$employee->gender = Input::get('gender');
-		$employee->position_id = Input::get('position_id');
 		$employee->user_id = $loggeduser->id;//Auth::user()->id;
 
 		if ($employee->save()) {

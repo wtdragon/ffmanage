@@ -23,14 +23,7 @@ class ReportsController extends Controller
      * @return \Illuminate\Http\Response
      */
      
-      protected $response;
-	  
-      public function __construct(ResponseFactory  $response)
-    {
-        $this->response = $response;
-    } 
-	
-	
+        
     public function index()
     {
         //
