@@ -36,7 +36,7 @@
             <br>
             员工姓名:
             <div class="form-group"> 
-  <select class="form-control" name="customer_id">
+  <select class="form-control" name="employee_id">
   	@foreach($sales as $sale)
        <option value="{{$sale->id}}">{{$sale->employee_name}}</option>
     @endforeach
@@ -46,7 +46,7 @@
             <br>
             直接领导:
             <div class="form-group"> 
-  <select class="form-control" name="sales_id">
+  <select class="form-control" name="leader_id">
   	@foreach($leaders as $leader)
       <option value="{{$leader->id}}">{{$leader->employee->employee_name}}</option>
     @endforeach

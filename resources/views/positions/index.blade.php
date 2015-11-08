@@ -26,12 +26,10 @@
 <td>{{ $position->employee->employee_name}}</td>
 @if ($position->leader_id === 0)
 <td>{{ $position->employee->employee_name}}</td>
+<td>{{ $position->branch_name}}</td>
   
 @else 
 	<td>{{ $position->leader->employee_name}}</td>
-
- 
-@endif
 <td>{{ $position->branch_name}}</td>
 <td><a href="{{ URL::route('positions.edit', $position->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 <form action="{{ URL('positions/'.$position->id) }}" method="POST" style="display: inline;">
@@ -40,6 +38,9 @@
               <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete" data-title="删除" data-message="确认要删除此数据吗 ?">删除</button>
 </form>
 </td>
+ 
+@endif
+
 </tr>
 @endforeach
 </tbody>

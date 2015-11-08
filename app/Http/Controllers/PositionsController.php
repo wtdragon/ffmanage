@@ -68,14 +68,17 @@ class PositionsController extends Controller
 		]);
          $loggeduser=\App::make('authenticator')->getLoggedUser();
 		$position = new m_position;
+		 $usergroup=App\UserGroup::where('user_id',$loggeduser->id)->first();
+         $position->branch_name=$usergroup->group->name;
 		$position->position_name = Input::get('position_name');
-		$position->department_id = Input::get('department_id');
 		$position->department_name = Input::get('department_name');
 		$position->start_date = Input::get('start_date');
 		$position->end_date = Input::get('end_date');
 		$position->employee_id = Input::get('employee_id');
 		$position->leader_id = Input::get('leader_id');
-		$position->depth =Input::get('depth');
+		$demons = m_position::where('employee_id', '=', $position->leader_id)->first();
+		
+		$position->depth =$demons->getLevel()+1;
 		$position->user_id = $loggeduser->id;//Auth::user()->id;
 
 		if ($position->save()) {
@@ -105,7 +108,11 @@ class PositionsController extends Controller
     public function edit($id)
     {
         //
-         return view('positions.edit')->withPosition(m_position::find($id));
+        $loggeduser=\App::make('authenticator')->getLoggedUser();
+        $sales=m_employee::where('user_id',$loggeduser->id)->get();
+        $leaders=m_position::where('user_id',$loggeduser->id)->orWhere('leader_id','=',0)->get();
+         return view('positions.edit')->withPosition(m_position::find($id))->withLeaders($leaders)
+									  ->withSales($sales);
     }
 
     /**
@@ -120,7 +127,6 @@ class PositionsController extends Controller
         //
           $this->validate($request, [
 			'position_name' => 'required',
-			'department_id' => 'required',
 			'department_name' => 'required',
 				'start_date' => 'required',
 			'end_date' => 'required',
@@ -128,14 +134,19 @@ class PositionsController extends Controller
 			'leader_id' => 'required',
 		]);
          $loggeduser=\App::make('authenticator')->getLoggedUser();
-		$position = m_position::find($id);
+		 $position =m_position::find($id);
+		 $usergroup=App\UserGroup::where('user_id',$loggeduser->id)->first();
+         $position->branch_name=$usergroup->group->name;
+		
 		$position->position_name = Input::get('position_name');
-		$position->department_id = Input::get('department_id');
 		$position->department_name = Input::get('department_name');
 		$position->start_date = Input::get('start_date');
 		$position->end_date = Input::get('end_date');
 		$position->employee_id = Input::get('employee_id');
 		$position->leader_id = Input::get('leader_id');
+		$demons = m_position::where('employee_id', '=', $position->leader_id)->first();
+		
+		$position->depth =$demons->getLevel()+1;
 		$position->user_id = $loggeduser->id;//Auth::user()->id;
 
 		if ($position->save()) {

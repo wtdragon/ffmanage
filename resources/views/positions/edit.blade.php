@@ -34,12 +34,26 @@
             结束日期
 	     <input type="date" name="end_date" class="form-control" required="required" value="{{ $position->end_date }}">
             <br>
-            员工姓名
-	      <input type="text" name="employee_id" class="form-control" required="required" value="{{ $position->employee_id }}">
+           员工姓名:
+            <div class="form-group"> 
+  <select class="form-control" name="employee_id">
+  	@foreach($sales as $sale)
+       <option value="{{$sale->id}}">{{$sale->employee_name}}</option>
+    @endforeach
+  </select>  
+  </div>
+           
             <br>
-            直接领导
-	     <input type="text" name="leader_id" class="form-control" required="required" value="{{ $position->leader_id }}">
-             <br>
+            直接领导:
+            <div class="form-group"> 
+  <select class="form-control" name="leader_id">
+  	@foreach($leaders as $leader)
+      <option value="{{$leader->id}}">{{$leader->employee->employee_name}}</option>
+    @endforeach
+  </select>  
+  </div>
+	       
+            <br>
              <button class="btn btn-lg btn-info">编辑职位信息</button>
                        </form>
  
