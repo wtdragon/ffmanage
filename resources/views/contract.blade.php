@@ -17,7 +17,7 @@
 	金         额：{{ $contract->deal_money }}万元
 </p> 
 <p>
-	年化收益：{{ $contract->sales_id }}%
+	年化收益(%)：{{ $contract->sales_id }}%
 </p> 
 <p>
 	总渠道费比例：{{ $contract->channel_cut }}

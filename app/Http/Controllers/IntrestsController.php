@@ -110,20 +110,69 @@ class IntrestsController extends Controller
     {
         //
           $this->validate($request, [
-			'contract_id' => 'required',
-			'planinterest_date' => 'required',
 			'realinterest_date' => 'required',
-			'interests_money' => 'required',
-			'rate_bymonth' => 'required',
+			
 		]);
          $loggeduser=\App::make('authenticator')->getLoggedUser();
 		$intrest = t_interestdetail::find($id);
-		$intrest->contract_id = Input::get('contract_id');
-		$intrest->planinterest_date = Input::get('planinterest_date');
 		$intrest->realinterest_date = Input::get('realinterest_date');
-		$intrest->interests_money = Input::get('interests_money');
-		$intrest->rate_bymonth = Input::get('rate_bymonth');
-		$intrest->user_id = $loggeduser->id;//Auth::user()->id;
+		
+		$intrest->have_intrests = Input::get('have_intrests');
+		if($intrest->have_intrests==1)
+		{
+		
+        $intbefore = t_interestdetail::where('id','=', $id-1)->where('contract_id',$intrest->contract_id)->first();
+		if($intbefore)
+		{
+		 if($intbefore->have_intrests==0)
+			{
+				return Redirect::back()->withInput()->withErrors('有未结息数据，请先结息后再对本期进行操作！');
+			}
+			else
+			{
+			$intrest->realinterest_date = Input::get('realinterest_date');
+            $intrest->other =  Input::get('other');
+			$intrest->bonused_time = $intrest->bonused_time+1;
+            $intrest->rest_time = $intrest->total_time-$intrest->bonused_time;
+           $intrest->save();
+				$intafters = t_interestdetail::where('id','>',$id)->where('contract_id',$intrest->contract_id)->get();
+				foreach($intafters as $intafter)
+				{
+					$intafter->bonused_time = $intafter->bonused_time+1;
+                    $intafter->rest_time = $intafter->total_time-$intafter->bonused_time;
+                    $intrest = t_interestdetail::find($intafter->id);
+					$intrest->bonused_time=$intafter->bonused_time;
+					$intrest->rest_time = $intafter->rest_time;
+		            $intrest->save();
+				}
+		
+		}
+		}
+		else {
+			$intrest->realinterest_date = Input::get('realinterest_date');
+            $intrest->other =  Input::get('other');
+			$intrest->bonused_time = $intrest->bonused_time+1;
+            $intrest->rest_time = $intrest->total_time-$intrest->bonused_time;
+            $intrest->save();       
+			$intafters = t_interestdetail::where('id','>',$id)->where('contract_id',$intrest->contract_id)->get();
+				foreach($intafters as $intafter)
+				{
+					$intafter->bonused_time = $intafter->bonused_time+1;
+                    $intafter->rest_time = $intafter->total_time-$intafter->bonused_time;
+                    $intrest = t_interestdetail::find($intafter->id);
+					$intrest->bonused_time=$intafter->bonused_time;
+					$intrest->rest_time = $intafter->rest_time;
+		            $intrest->save();
+				}
+		}
+		}
+else{
+	 $intrest->realinterest_date = Input::get('realinterest_date');
+     $intrest->other =  Input::get('other');
+	 
+}
+		 
+		
 
 		if ($intrest->save()) {
 			return Redirect::to('intrests');

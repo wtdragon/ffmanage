@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\t_contract,App\m_product,App\m_customer,App\m_employee;
+use App\t_contract,App\m_product,App\m_customer,App\m_employee,App\t_interestdetail;
 use Redirect, Input;
 class ContractsController extends Controller
 {
@@ -71,15 +71,81 @@ class ContractsController extends Controller
 		$contract->pay_mothod = Input::get('pay_mothod');
 		$contract->pay_date = Input::get('pay_date');
 		$contract->pay_time = Input::get('pay_time');
-		$contract->intrests_start_date = Input::get('intrests_start_date');
+		if($contract->pay_mothod=="pos" && strtotime($contract->pay_time) >= strtotime('12:00') )
+		{    
+			$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+31days",strtotime($contract->pay_date)));
+		     
+			
+		}
+		else
+		{
+		$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+30days",strtotime($contract->pay_date)));
+		 
+		}
 		$contract->deal_money = Input::get('deal_money');
+		
 		$contract->profit_byyear = Input::get('profit_byyear');
-		$contract->invest_time = Input::get('invest_time');
+		$contract->profit_bymonth= $contract->profit_byyear/12;
+		
+		$contract->intrests_money_bymonth=$contract->deal_money*10000*$contract->profit_bymonth/100;
+		
+	    $contract->invest_time = Input::get('invest_time');
 		$contract->channel_cut = Input::get('channel_cut');
 		$contract->other = Input::get('other');
 		$contract->user_id = $loggeduser->id;//Auth::user()->id;
         
        
+        for($i=1;$i <=$contract->invest_time;$i++) {
+  if($i!=$contract->invest_time)
+    {   
+$intrest = new t_interestdetail;
+$intrest->contract_id = $contract->contract_id;
+$intrest->product_id = $contract->product_id;
+$intrest->customer_id = $contract->customer_id;
+
+$days=($i-1)*30;
+$intrest->planinterest_date = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
+
+$intrest->realinterest_date  = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
+$intrest->principal_money = 0;
+$intrest->bonused_time = 0;
+$intrest->rest_time =  $contract->invest_time;
+$intrest->total_time = $contract->invest_time;
+
+$intrest->profit_byyear = $contract->profit_byyear;
+
+$intrest->interests_money = floor($contract->deal_money*10000*($contract->profit_bymonth/100));
+ 
+$intrest->user_id = $loggeduser->id;//Auth::user()->id;
+				
+	$intrest->save();			
+      }
+ else 
+      {
+				$intrest = new t_interestdetail;
+$intrest->contract_id = $contract->contract_id;
+$intrest->customer_id = $contract->customer_id;
+
+$intrest->product_id = $contract->product_id;
+$days=($i-1)*30;
+$intrest->planinterest_date = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
+
+$intrest->realinterest_date  = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
+$intrest->principal_money = $contract->deal_money;
+$intrest->bonused_time = 0;
+$intrest->rest_time =  $contract->invest_time;
+$intrest->total_time = $contract->invest_time;
+$intrest->profit_byyear = $contract->profit_byyear;
+
+$lm=floor($contract->deal_money*10000*($contract->profit_bymonth/100))*($contract->invest_time-1);
+$intrest->interests_money = $contract->deal_money*10000*($contract->profit_bymonth/100)*$contract->invest_time - $lm;
+ 
+$intrest->user_id = $loggeduser->id;//Auth::user()->id;
+				
+	$intrest->save();
+	 }
+}
+        
         
 		if ($contract->save()) {
 			return Redirect::to('contracts');
@@ -150,13 +216,24 @@ class ContractsController extends Controller
 		$contract->pay_date = Input::get('pay_date');
 		$contract->pay_time = Input::get('pay_time');
 		$contract->deal_money = Input::get('deal_money');
-		$contract->intrests_start_date = Input::get('intrests_start_date');
-		$contract->profit_byyear = Input::get('profit_byyear');
+		if($contract->pay_mothod=="pos" && strtotime($contract->pay_time) >= strtotime('12:00') )
+		{    
+			$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+31days",strtotime($contract->pay_date)));
+		     
+			
+		}
+		else{
+		$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+30days",strtotime($contract->pay_date)));
+		 
+		}
+        $contract->profit_byyear = Input::get('profit_byyear');
 		$contract->invest_time = Input::get('invest_time');
 		$contract->channel_cut = Input::get('channel_cut');
 		$contract->other = Input::get('other');
 		$contract->user_id = $loggeduser->id;//Auth::user()->id;
-
+        
+        
+        
 		if ($contract->save()) {
 			return Redirect::to('contracts');
 		} else {

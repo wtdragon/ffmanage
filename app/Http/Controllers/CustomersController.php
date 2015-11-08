@@ -21,7 +21,7 @@ class CustomersController extends Controller
      */
     public function index()
     {
-           $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
     	    $customers= m_customer::where('user_id',$loggeduser->id)->get();	
 			}

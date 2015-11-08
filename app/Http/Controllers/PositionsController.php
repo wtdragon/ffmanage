@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\m_position,App\m_employee;
+use App\m_position,App\m_employee,App\UserGroup;
 use Redirect, Input;
 class PositionsController extends Controller
 {
@@ -68,7 +68,7 @@ class PositionsController extends Controller
 		]);
          $loggeduser=\App::make('authenticator')->getLoggedUser();
 		$position = new m_position;
-		 $usergroup=App\UserGroup::where('user_id',$loggeduser->id)->first();
+		 $usergroup=UserGroup::where('user_id',$loggeduser->id)->first();
          $position->branch_name=$usergroup->group->name;
 		$position->position_name = Input::get('position_name');
 		$position->department_name = Input::get('department_name');
@@ -135,10 +135,9 @@ class PositionsController extends Controller
 		]);
          $loggeduser=\App::make('authenticator')->getLoggedUser();
 		 $position =m_position::find($id);
-		 $usergroup=App\UserGroup::where('user_id',$loggeduser->id)->first();
+		 $usergroup=UserGroup::where('user_id',$loggeduser->id)->first();
          $position->branch_name=$usergroup->group->name;
-		
-		$position->position_name = Input::get('position_name');
+			$position->position_name = Input::get('position_name');
 		$position->department_name = Input::get('department_name');
 		$position->start_date = Input::get('start_date');
 		$position->end_date = Input::get('end_date');

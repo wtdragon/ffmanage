@@ -22,22 +22,25 @@
 	 <form action="{{ URL('intrests/'.$interest->id) }}" method="POST">
             <input name="_method" type="hidden" value="PUT">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             合同编号  
-            <input type="text" name="contract_id" class="form-control" required="required" value="{{ $interest->contract_id }}">
+                            实际分红日期
+	      <input type="date" name="realinterest_date" class="form-control" required="required" value="{{ $interest->realinterest_date }}">
             <br>
-            计划分红日期
-             <input type="text" name="planinterest_date" class="form-control" required="required" value="{{ $interest->planinterest_date }}">
-            <br>
-            实际分红日期
-	      <input type="text" name="realinterest_date" class="form-control" required="required" value="{{ $interest->realinterest_date }}">
-            <br>
-            分红金额
-	      <input type="text" name="interests_money" class="form-control" required="required" value="{{ $interest->interests_money }}">
-            <br>
-                                 年利率%
-	     <input type="text" name="rate_bymonth" class="form-control" required="required" value="{{ $interest->rate_bymonth }}">
-            <br>
-            <button class="btn btn-lg btn-info">修改分红</button>
+           	是否已结息
+           <div class="form-group" id="paymethod"> 
+          
+  <select class="form-control" name="have_intrests">
+   
+     
+       <option value="0">否</option> 
+        <option value="1">是</option>
+    
+  </select>  
+  </div>
+  <br>
+  备注：
+<input type="text" name="other" class="form-control" value="{{ $interest->other }}">
+                  <br>
+                    <button class="btn btn-lg btn-info">修改实际分红日期</button>
                        </form>
  
 

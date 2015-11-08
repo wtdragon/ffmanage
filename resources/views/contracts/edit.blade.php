@@ -22,20 +22,20 @@
 	 <form action="{{ URL('contracts/'.$contract->id) }}" method="POST">
             <input name="_method" type="hidden" value="PUT">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-               合同编码
+               合同编号
             <input type="text" name="contract_id" class="form-control" required="required" value="{{ $contract->contract_id }}">
             <br>
               产品名称
               <div class="form-group"> 
   <select class="form-control" name="product_id">
   	@foreach($products as $product)
-      <option value="{{$product->product_id}}">{{$product->product_name}}</option>
+      <option value="{{$product->id }}">{{$product->product_name}}</option>
     @endforeach
   </select>  
   </div>
               <br>
              <br>       
-            客户名称:
+            客户姓名:
             <div class="form-group"> 
   <select class="form-control" name="customer_id">
   	@foreach($customers as $customer)
@@ -45,7 +45,7 @@
   </div>
            
             <br>
-            销售人员名称:
+            出单人:
             <div class="form-group"> 
   <select class="form-control" name="sales_id">
   	@foreach($sales as $sale)
@@ -67,20 +67,18 @@
     
   </select>  
   </div>
-               付款日期
+               打款日期
 	     <input type="date" name="pay_date" class="form-control" required="required" value="{{ $contract->pay_date }}">
 	        <br>
 	                 <div class="hidden" id="pay_time">
 	  付款时间
             <input type="time" name="pay_time" class="form-control" >
            </div><br>
-               起息日期
-            <input type="date" name="intrests_start_date" class="form-control"   value="{{ $contract->intrests_start_date }}">
-            <br>
-            成交金额
+               
+            成单金额(万元)
              <input type="text" name="deal_money" class="form-control" required="required" value="{{ $contract->deal_money }}">
             <br>
-            年化收益
+            年化收益(%)
 	      <input type="text" name="profit_byyear" class="form-control" required="required" value="{{ $contract->profit_byyear }}">
             <br>
               投资期限
@@ -98,7 +96,7 @@
              
               <br>
             渠道提成(%)
-	     <input type="text" name="channel_cut" class="form-control" required="required" value="{{ $contract->channel_cut }}%">
+	     <input type="text" name="channel_cut" class="form-control" required="required" value="{{ $contract->channel_cut }}">
             <br>
                            备注
 	     <input type="text" name="other" class="form-control"   value="{{ $contract->other }}">

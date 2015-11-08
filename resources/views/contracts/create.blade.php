@@ -22,7 +22,7 @@
 
           <form action="{{ URL('contracts') }}" method="POST">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             合同编码
+             合同编号
             <input type="text" name="contract_id" class="form-control" required="required">
             <br>
                               产品名称:
@@ -30,12 +30,12 @@
   <div class="form-group"> 
   <select class="form-control" name="product_id">
   	@foreach($products as $product)
-      <option value="{{$product->product_id}}">{{$product->product_name}}</option>
+      <option value="{{$product->id}}">{{$product->product_name}}</option>
     @endforeach
   </select>  
   </div>
     <br>       
-            客户名称:
+            客户姓名:
             <div class="form-group"> 
   <select class="form-control" name="customer_id">
   	@foreach($customers as $customer)
@@ -45,7 +45,7 @@
   </div>
            
             <br>
-            销售人员名称:
+            出单人:
             <div class="form-group"> 
   <select class="form-control" name="sales_id">
   	@foreach($sales as $sale)
@@ -70,20 +70,18 @@
            
  
             <br>
-            付款日期
+            打款日期
 	     <input type="date" name="pay_date" class="form-control" required="required">
 	        <div class="hidden" id="pay_time">
 	  付款时间
             <input type="time" name="pay_time" class="form-control" >
            </div>
             <br>
-               起息日期
-            <input type="date" name="intrests_start_date" class="form-control" required="required">
-            <br>
-            成交金额(万元)
+         
+            成单金额(万元)
              <input type="text" name="deal_money" class="form-control" required="required">
             <br>
-            年化收益
+            年化收益(%)
 	      <input type="text" name="profit_byyear" class="form-control" required="required">
             <br>
             投资期限
@@ -104,7 +102,7 @@
 	     <input type="text" name="channel_cut" class="form-control" required="required">
             <br>
              备注
-	     <input type="text" name="other" class="form-control" required="required"  >
+	     <input type="text" name="other" class="form-control"    >
             <br>
             <button class="btn btn-lg btn-info">新增合同</button>
           </form>

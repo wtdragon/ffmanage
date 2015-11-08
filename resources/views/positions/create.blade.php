@@ -22,9 +22,19 @@
 
           <form action="{{ URL('positions') }}" method="POST">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             职称
-            <input type="text" name="position_name" class="form-control" required="required">
-            <br>
+             职称：
+  <div class="form-group" id="paymethod"> 
+  <select class="form-control" name="position_name"  required="required">
+   
+      <option value="副总经理">副总经理</option>
+       <option value="总监">总监</option>
+        <option value="销售经理">销售经理</option>
+         <option value="销售专员">销售专员</option>
+     
+    
+  </select>  
+  </div>
+              <br>
             部门名称
 	      <input type="text" name="department_name" class="form-control" required="required">
             <br>

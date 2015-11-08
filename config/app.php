@@ -139,6 +139,7 @@ return [
         'LaravelAcl\Authentication\AuthenticationServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Collective\Html\HtmlServiceProvider',
+        'yajra\Datatables\DatatablesServiceProvider',
 
         /*
          * Application Service Providers...
@@ -200,6 +201,7 @@ return [
         'Form' => 'Collective\Html\FormFacade', 
         'Html' => 'Collective\Html\HtmlFacade',
         'Baum\Providers\BaumServiceProvider',
+        'Datatables' => yajra\Datatables\Datatables::class,
         
 
     ],
