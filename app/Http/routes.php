@@ -63,4 +63,9 @@ Route::get('download/{filename}',[
 		'as'=>'download',
 		'uses'=>'ReportsController@download'
 	]);	
+	
+Route::get('cdata',[
+		'as'=>'cdata',
+		'uses'=>'ContractsController@anydata'
+	]);
  

@@ -13,6 +13,7 @@
 	
 	<link href={{ URL::asset('images/bootstrap.min.css') }} rel="stylesheet">
 	<link href={{ URL::asset('images/css.css') }} rel="stylesheet">
+   
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -25,10 +26,12 @@
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/img/apple-touch-icon-72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="images/img/apple-touch-icon-57-precomposed.png">
   <link rel="shortcut icon" href="images/img/favicon.png">
-  
+    
 	<script type="text/javascript" src={{ URL::asset('images/js/jquery.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/bootstrap.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/scripts.js') }}></script>
+
+	
 	 @yield('hdsrc')
 </head>
 

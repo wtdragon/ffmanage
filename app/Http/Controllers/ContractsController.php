@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\t_contract,App\m_product,App\m_customer,App\m_employee,App\t_interestdetail;
+use yajra\Datatables\Datatables;
 use Redirect, Input;
 class ContractsController extends Controller
 {
@@ -22,18 +23,59 @@ class ContractsController extends Controller
     public function index()
     {
         //
-        $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+              $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
-    	    $contracts= t_contract::where('user_id',$loggeduser->id)->get();	
+    	        $contracts= t_contract::where('user_id',$loggeduser->id)->get();	
 			}
 			else {
 				$contracts=t_contract::all();
 			}
-       
 			 return view('contracts.index')->withContracts($contracts);
 		 
     }
 
+ public function anyData()
+    {
+    	    header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+		header('Access-Control-Allow-Origin: *');
+		       
+    	   
+          
+ return Datatables::of($contracts)
+            ->addColumn('edit', function($contract) {
+                return '<a href='.$contract->id.'/edit class="btn btn-default">编辑</a>';
+            })
+->addColumn('delete', function($contract) {
+                $modal =
+                    '<div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                        '.Form::open(array("route" => array("contracts.destroy", $contract->id), "method" => "delete")).'
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                                        <h4 class="modal-title">取消删除</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>确认删除此条数据吗？</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消删除</button>
+                                        <button type="submit" class="btn btn-danger" name="cancelDR">确认删除</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        '.Form::close().'
+                    </div><!-- /.modal -->';
+
+                return Form::button('<span class="glyphicon glyphicon-trash"></span> 取消', array('name'=>'cancelDR', 'class' => 'btn btn-danger btn-block', 'type' => 'button',  'data-toggle' => 'modal', 'data-target' => '#confirmDelete')).$modal;
+            })
+            ->removeColumn('id')
+            ->make(true);
+		  
+		 
+    } 
+ 
     /**
      * Show the form for creating a new resource.
      *
