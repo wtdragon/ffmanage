@@ -5,7 +5,9 @@
 	   $salescut=$contract->channel_cut-$position->depth;
 	   $salecutmoney=($contract->channel_cut-$position->depth)*$contract->deal_money/100;
 	  ?>
- 
+<p>
+	产品名称：{{ $product->product_name }}
+</p>  
  
 <p>
 	出单人员：{{ $contract->employee->employee_name }}
@@ -23,15 +25,18 @@
 	总渠道费比例：{{ $contract->channel_cut }}
 </p> 
 <p>
-	既：市场各职级渠道费为{{ $contract->deal_money }}X{{ $contract->channel_cut }}%={{ $tqt }}
+	公司渠道费：{{ $contract->channel_cut }}
+</p> 
+<p>
+	既：市场各职级渠道费为{{ $contract->deal_money }}X{{ $contract->channel_cut }}%={{ $tqt }}万元
 </p> 
  
  <p>
-	{{ $position->position_name }} {{ $position->employee->employee_name }} :市场各职级渠道费{{  $salescut }}%:{{ $contract->deal_money }}万X{{  $salescut }}%={{  $salecutmoney }}
+	{{ $position->position_name }} {{ $position->employee->employee_name }} :市场各职级渠道费{{  $salescut }}%:{{ $contract->deal_money }}万X{{  $salescut }}%={{  $salecutmoney }}万元
 </p>
- @foreach ($parents as $parent)
+ @foreach ($parentcontents as $key => $value)
   <p>
-  	{{ $parent->position_name }} {{ $parent->employee->employee_name }} :市场各职级渠道费1%:{{ $contract->deal_money }}万X1%={{  $parentcut }}
+  	{{ $key }} :市场各职级渠道费:{{ $value }}
 
   </p>
  @endforeach
