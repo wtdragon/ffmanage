@@ -21,8 +21,8 @@
     <th class="tg-yw4l">客户姓名<br></th>
     <th class="tg-yw4l">打款日期</th>
     <th class="tg-yw4l">成单金额<br>（万元）<br></th>
-    <th class="tg-yw4l">年化收益(%)<br>（%）<br></th>
-    <th class="tg-yw4l">各职级渠道费<br>   （元）<br></th>
+    <th class="tg-yw4l">年化收益(%)<br><br></th>
+    <th class="tg-yw4l">各职级渠道费<br>（万元）<br></th>
     <th class="tg-yw4l">    &nbsp; &nbsp; &nbsp;备注    &nbsp; &nbsp; &nbsp; <br></th>
   </tr>
   @foreach ($contracts as $contract)
@@ -34,7 +34,7 @@
 <tr>
 <td>{{ $pid }}</td>
 <td>{{ $contract->contract_id }}</td>
-<td>{{ $contract->sales_id }}</td>
+<td>{{ $contract->employee->employee_name }}</td>
 <td>{{ $contract->customer_id }}</td>
 <td>{{ $contract->pay_date }}</td>
 <td>{{ $contract->deal_money }}</td>

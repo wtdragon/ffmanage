@@ -3,6 +3,15 @@
 @stop
 @section('content')
 <div class="center" >
+	@if (count($errors) > 0)
+            <div class="alert alert-danger">
+              <strong>额~</strong>  @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+                <br><br>
+               
+            </div>
+@endif	
 <div class="row">
 <div class="col-sm-6">
 <form role="form" id="productform" action="/prodreports" style="border-style:solid;height:200px">
@@ -44,7 +53,7 @@
 </form>
 </div>
 <div class="col-sm-6">
-<form role="form" id="productform" action="/prodreports" style="border-style:solid;height:200px">
+<form role="form" id="productform" action="/ctrreports" style="border-style:solid;height:200px">
    <div class="form-group">
       <label for="name">依照产品名称</label>
       <select class="form-control" name="productname">
@@ -69,16 +78,9 @@
 </form>
  </div>  
  <div class="col-sm-6">
-<form role="form" id="productform" action="/prodreports" style="border-style:solid;height:200px">
+<form role="form" id="productform" action="/cusreports" style="border-style:solid;height:200px">
    <div class="form-group">
-      <label for="name">依照合同号</label>
-      <select class="form-control" name="productname">
-       @foreach ($contracts as $contract)
-         <option> {{ $contract->contract_id}}</option>
-         @endforeach
-      </select>
-      
-      <label for="name">时间期限</label>
+      <label for="name">依照时间期限</label>
   <select class="form-control" name="timerange">
       <option value="1">本周</option>
        <option value="2">本月</option>

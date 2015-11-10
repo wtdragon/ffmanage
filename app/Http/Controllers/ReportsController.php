@@ -9,7 +9,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\m_product,App\t_contract,App\m_customer,App\m_employee,App\t_interestdetail,App\m_position;
-
+use Carbon\Carbon;
 use Redirect, Input;
 class ReportsController extends Controller
 {
@@ -155,28 +155,444 @@ class ReportsController extends Controller
     public function prodreports()
     {
         //
-        $productname = Input::get('productname');
-		$begintime = Input::get('begintime');
-		$endtime = Input::get('endtime');
-       $product=m_product::where('product_name',$productname)->first();
-	    
-	   $contracts=t_contract::where('product_id',$product->product_id)->get();
-	   $filename=$product->product_id+time();
-	   \Excel::create($filename, function($excel) use ($productname, $contracts) {
-          
-         $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
-         
-        $sheet->loadView('pdreport') 
-                            ->withProductname($productname)
-	                        ->withContracts($contracts);
+       $productname = Input::get('productname');
+	   $timerange = Input::get('timerange');
+	   $product=m_product::where('product_name',$productname)->first();
+	  
+	   if($timerange==1)
+	   { 	 
+        $lastWeek = Carbon::now()->subWeek();
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastWeek->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 
+	    	$filename=$product->product_id+time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('pdreport') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
 
-    });
+               });
 
-       })->download('xls');
-       return \View::make('reports.products')->withProductname($productname)
-	                                         ->withContracts($contracts)
-											 ->withFilename($filename);
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本周此产品下无合同产生');
+	       }
+	   
+	   }
+	   elseif($timerange==2)
+	   {
+	   	$lastMonth = Carbon::now()->subMonth();
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastMonth->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 
+	    	$filename=$product->product_id+time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('pdreport') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本月此产品下无合同产生');
+	       }
+	   }
+	    elseif($timerange==3)
+	   {
+	   	 $lastHalfyear = Carbon::now()->subMonths(3);
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastHalfyear->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 
+	    	$filename=$product->product_id+time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('pdreport') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本季度内此产品下无合同产生');
+	       }
+	   }
+	   elseif($timerange==4)
+	   {
+	   	 $lastHalfyear = Carbon::now()->subMonths(6);
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastHalfyear->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 
+	    	$filename=$product->product_id+time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('pdreport') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('半年内此产品下无合同产生');
+	       }
+	   }
+		else 
+	   {
+	   	$lastYear = Carbon::now()->subYear();
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastYear->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 
+	    	$filename=$product->product_id+time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('pdreport') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本年度此产品下无合同产生');
+	       }
+	   }
+       
     }
+	
+	
+	
+	 /**
+     * post ctrreports and the begin time
+	 * end time
+     * return the reports for products
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function ctrreports()
+    {
+        //
+       $productname = Input::get('productname');
+	   $timerange = Input::get('timerange');
+	   $product=m_product::where('product_name',$productname)->first();
+	  
+	   if($timerange==1)
+	   { 	 
+        $lastWeek = Carbon::now()->subWeek();
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastWeek->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+		$productname='本周'.$productname;				 
+	    if($contracts->count())
+	    {
+	    	 
+	    	$filename=$product->product_name . time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('ctrreports') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本周此产品下无合同产生');
+	       }
+	   
+	   }
+	   elseif($timerange==2)
+	   {
+	   	$lastMonth = Carbon::now()->subMonth();
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastMonth->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 $productname='本月'.$productname;
+	    	$filename=$product->product_name . time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('ctrreports') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本月此产品下无合同产生');
+	       }
+	   }
+	    elseif($timerange==3)
+	   {
+	   	 $lastHalfyear = Carbon::now()->subMonths(3);
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastHalfyear->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 $productname='本季度'.$productname;
+	    	
+	    	$filename=$product->product_name . time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('ctrreports') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+		 else {
+			
+			return Redirect::back()->withInput()->withErrors('本季度内此产品下无合同产生');
+	       }
+		 }
+	
+        elseif($timerange==4)
+	   {
+	   	 $lastHalfyear = Carbon::now()->subMonths(6);
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastHalfyear->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 $productname='半年度'.$productname;
+	    	
+	    	$filename=$product->product_name . time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('ctrreports') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		}
+		 else {
+			
+			return Redirect::back()->withInput()->withErrors('半年内此产品下无合同产生');
+	       }
+	   } 	   
+		else 
+	   {
+	   	$lastYear = Carbon::now()->subYear();
+	    $nowdate = Carbon::now();    
+	    $contracts=t_contract::where('product_id',$product->id)
+	                         ->where('pay_date','>',$lastYear->toDateString())
+	                         ->where('pay_date','<=',$nowdate->toDateString())->get();
+	    if($contracts->count())
+	    {
+	    	 $productname='本年度'.$productname;
+	    	
+	    	$filename=$product->product_name . time();
+	        \Excel::create($filename, function($excel) use ($productname, $contracts) {
+              $excel->sheet('New sheet', function($sheet)  use ($productname, $contracts) {
+              $sheet->loadView('ctrreports') 
+                    ->withProductname($productname)
+	                ->withContracts($contracts);
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本年度此产品下无合同产生');
+	       }
+	   }
+      
+    }
+	   
+	   
+	   
+	  /**
+     * post product infro and the begin time
+	 * end time
+     * return the reports for products
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cusreports()
+    {
+        //
+        $timerange = Input::get('timerange');
+	    
+	   if($timerange==1)
+	   { 	 
+        $lastWeek = Carbon::now()->subWeek();
+	    $nowdate = Carbon::now();    
+	    $intrests=t_interestdetail::where('planinterest_date','>',$lastWeek->toDateString())
+	                                ->where('planinterest_date','<=',$nowdate->toDateString())->get();
+	    if($intrests->count())
+	    {
+	    	 $timerange="周";
+	    	$filename=$intrests->first()->id . time();
+	        \Excel::create($filename, function($excel) use ($intrests,$timerange) {
+              $excel->sheet('New sheet', function($sheet)  use ($intrests,$timerange) {
+              $sheet->loadView('cusreports')
+			        ->withTimerange($timerange) 
+                    ->withIntrests($intrests) ;
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本周无分红明细');
+	       }
+	   
+	   }
+	   elseif($timerange==2)
+	   {
+	   	$lastMonth = Carbon::now()->subMonth();
+	    $nowdate = Carbon::now();    
+	    $intrests=t_interestdetail::where('planinterest_date','>',$lastMonth->toDateString())
+	                                ->where('planinterest_date','<=',$nowdate->toDateString())->get();
+	    if($intrests->count())
+	    {
+	    	 $timerange="月";
+	    	$filename=$intrests->first()->id . time();
+	        \Excel::create($filename, function($excel) use ($intrests,$timerange) {
+              $excel->sheet('New sheet', function($sheet)  use ($intrests,$timerange) {
+              $sheet->loadView('cusreports')
+			        ->withTimerange($timerange) 
+                    ->withIntrests($intrests) ;
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本月无分红明细');
+	       }
+	   }
+	    elseif($timerange==3)
+	   {
+	   	 $lastHalfyear = Carbon::now()->subMonths(3);
+	    $nowdate = Carbon::now();    
+	    $intrests=t_interestdetail::where('planinterest_date','>',$lastHalfyear->toDateString())
+	                                ->where('planinterest_date','<=',$lastHalfyear->toDateString())->get();
+	    if($intrests->count())
+	    {
+	    	 $timerange="季度";
+	    		$filename=$intrests->first()->id . time();
+	        \Excel::create($filename, function($excel) use ($intrests,$timerange) {
+              $excel->sheet('New sheet', function($sheet)  use ($intrests,$timerange) {
+             $sheet->loadView('cusreports')
+			        ->withTimerange($timerange) 
+                    ->withIntrests($intrests) ;
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本季度无分红明细');
+	       }
+	   }
+	   	elseif($timerange==4)
+	   {
+	   	 $lastHalfyear = Carbon::now()->subMonths(6);
+	    $nowdate = Carbon::now();    
+	    $intrests=t_interestdetail::where('planinterest_date','>',$lastHalfyear->toDateString())
+	                                ->where('planinterest_date','<=',$lastHalfyear->toDateString())->get();
+	    if($intrests->count())
+	    {
+	    	 $timerange="半年度";
+	    		$filename=$intrests->first()->id . time();
+	        \Excel::create($filename, function($excel) use ($intrests,$timerange) {
+              $excel->sheet('New sheet', function($sheet)  use ($intrests,$timerange) {
+            $sheet->loadView('cusreports')
+			        ->withTimerange($timerange) 
+                    ->withIntrests($intrests) ;
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本半年度无分红明细');
+	       }
+	   }
+		else 
+	   {
+	   	$lastYear = Carbon::now()->subYear();
+	    $nowdate = Carbon::now();    
+	    $intrests=t_interestdetail::where('planinterest_date','>',$lastYear->toDateString())
+	                                ->where('planinterest_date','<=',$lastHalfyear->toDateString())->get();
+	    if($intrests->count())
+	    {
+	    	 $timerange="半年度";
+	    	$filename=$intrests->first()->id . time();
+	        \Excel::create($filename, function($excel) use ($intrests,$timerange) {
+              $excel->sheet('New sheet', function($sheet)  use ($intrests,$timerange) {
+               $sheet->loadView('cusreports')
+			        ->withTimerange($timerange) 
+                    ->withIntrests($intrests) ;
+
+               });
+
+               })->download('xls'); 
+		 }
+	     else {
+			
+			return Redirect::back()->withInput()->withErrors('本年度无分红明细');
+	       }
+	   }
+       
+    }
+	     
+	
+	   
 	 /**
      * post contracts infro and the begin time
      *

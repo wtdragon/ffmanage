@@ -59,6 +59,16 @@ Route::get('contractreports',[
 		'as'=>'contractreports',
 		'uses'=>'ReportsController@contractreports'
 	]);	
+	
+Route::get('ctrreports',[
+		'as'=>'ctrreports',
+		'uses'=>'ReportsController@ctrreports'
+	]);
+	
+Route::get('cusreports',[
+		'as'=>'cusreports',
+		'uses'=>'ReportsController@cusreports'
+	]);		
 Route::get('download/{filename}',[
 		'as'=>'download',
 		'uses'=>'ReportsController@download'
