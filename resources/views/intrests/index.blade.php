@@ -53,7 +53,8 @@
 @endforeach
 </tbody>
 </table>
-{{ $intrests->links() }}
+ {!! $intrests->render() !!}
+
  </div>
  @include('delconfirm')   
 @stop

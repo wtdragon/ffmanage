@@ -26,7 +26,7 @@ class EmployeesController extends Controller
     	    $employees= m_employee::where('user_id',$loggeduser->id)->paginate(10);
 			}
 			else {
-				$employees=m_employee::all()->paginate(10);
+				$employees=m_employee::paginate(10);
 			}
          	return view('employees.index')->withEmployees($employees);
 		 

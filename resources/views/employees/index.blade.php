@@ -27,8 +27,9 @@
 @endforeach
 </tbody>
 </table>
-{{ $employees->links() }}
-<a href="{{ URL::route('employees.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
+{!! $employees->render() !!}
+ 
+ <a href="{{ URL::route('employees.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
  
  </div>
  @include('delconfirm')     

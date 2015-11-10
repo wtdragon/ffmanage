@@ -73,8 +73,7 @@
 @endforeach
 </tbody>
 </table>
-{{ $contracts->links() }}
-
+ {!! $contracts->render() !!}
  <a href="{{ URL::route('contracts.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
  </div>  
  @include('delconfirm')

@@ -45,8 +45,9 @@
 @endforeach
 </tbody>
 </table>
-{{ $positions->links() }}
-<a href="{{ URL::route('positions.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
+{!! $positions->render() !!}
+
+ <a href="{{ URL::route('positions.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
  
  </div>  
  @include('delconfirm')   

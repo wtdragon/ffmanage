@@ -28,7 +28,7 @@ class ContractsController extends Controller
     	        $contracts= t_contract::where('user_id',$loggeduser->id)->paginate(10);	
 			}
 			else {
-				$contracts=t_contract::all()->paginate(10);
+				$contracts=t_contract::paginate(10);
 			}
 			 return view('contracts.index')->withContracts($contracts);
 		 

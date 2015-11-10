@@ -21,7 +21,7 @@ class ProductsController extends Controller
     public function index()
     {
         //
-         	$products=m_product::all()->paginate(10);
+         	$products=m_product::paginate(10);
 			 return view('products.index')->withProducts($products);
 		 
     }

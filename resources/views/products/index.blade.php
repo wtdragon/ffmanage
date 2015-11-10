@@ -30,7 +30,8 @@
 @endforeach
 </tbody>
 </table>
-{{ $products->links() }}
+{!! $products->render() !!}
+ 
 <a href="{{ URL::route('products.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
  
  </div>  

@@ -25,7 +25,7 @@ class IntrestsController extends Controller
     	    $contracts= t_interestdetail::where('user_id',$loggeduser->id)->paginate(10);	
 			}
 			else {
-				$contracts=t_interestdetail::all()->paginate(10);
+				$contracts=t_interestdetail::paginate(10);
 			}
 			 
 			return view('intrests.index')->withIntrests($contracts);
