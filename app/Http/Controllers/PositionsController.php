@@ -24,10 +24,10 @@ class PositionsController extends Controller
         //
              $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
-    	    $positions=m_position::where('user_id',$loggeduser->id)->orWhere('leader_id','=',0)->get();	
+    	    $positions=m_position::where('user_id',$loggeduser->id)->orWhere('leader_id','=',0)->paginate(10);	
 			}
 			else {
-				$positions=m_position::all();
+				$positions=m_position::all()->paginate(10);
 			}
           	 
 			 return view('positions.index')->withPositions($positions);

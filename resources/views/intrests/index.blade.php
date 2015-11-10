@@ -53,6 +53,7 @@
 @endforeach
 </tbody>
 </table>
+{{ $intrests->links() }}
  </div>
  @include('delconfirm')   
 @stop

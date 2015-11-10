@@ -23,10 +23,10 @@ class CustomersController extends Controller
     {
             $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
-    	    $customers= m_customer::where('user_id',$loggeduser->id)->get();	
+    	    $customers= m_customer::where('user_id',$loggeduser->id)->paginate(10);	
 			}
 			else {
-				$customers=m_customer::all();
+				$customers=m_customer::all()->paginate(10);
 			}
           	  return view('customers.index')->withCustomers($customers);
 		 

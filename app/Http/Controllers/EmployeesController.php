@@ -23,10 +23,10 @@ class EmployeesController extends Controller
         //  
             $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
-    	    $employees= m_employee::where('user_id',$loggeduser->id)->get();	
+    	    $employees= m_employee::where('user_id',$loggeduser->id)->paginate(10);
 			}
 			else {
-				$employees=m_employee::all();
+				$employees=m_employee::all()->paginate(10);
 			}
          	return view('employees.index')->withEmployees($employees);
 		 

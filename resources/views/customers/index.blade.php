@@ -38,6 +38,7 @@
 @endforeach
 </tbody>
 </table>
+{{ $customers->links() }}
 <a href="{{ URL::route('customers.create' ) }}" class="btn btn-success btn-mini pull-left">新增</a>
  
  </div>
