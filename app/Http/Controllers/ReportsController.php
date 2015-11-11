@@ -26,125 +26,25 @@ class ReportsController extends Controller
         
     public function index()
     {
-        //
-          	$products=m_product::all();
+        //  
+            $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	    $contracts= t_contract::where('user_id',$loggeduser->id)->get();
+            $products=m_product::where('user_id',$loggeduser->id)->get();	
+			}
+			else {
+			$products=m_product::all();
 			$contracts=t_contract::all();
+			}
+            
+          	
 			 return view('reports.index')->withProducts($products)
 			                             ->withContracts($contracts);;
 		 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('products.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-          $this->validate($request, [
-          	'product_id' => 'required',
-			'product_name' => 'required',
-			'start_date' => 'required',
-			'end_date' => 'required',
-			
-		]);
-         $loggeduser=\App::make('authenticator')->getLoggedUser();
-		$product = new m_product;
-		$product->product_id = Input::get('product_id');
-		$product->product_name = Input::get('product_name');
-		$product->start_date = Input::get('start_date');
-		$product->end_date = Input::get('end_date');
-		$product->user_id = $loggeduser->id;//Auth::user()->id;
-
-		if ($product->save()) {
-			return Redirect::to('products');
-		} else {
-			return Redirect::back()->withInput()->withErrors('保存失败！');
-		}
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        return view('products.edit')->withProduct(m_product::find($id));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-           $this->validate($request, [
-           'product_id' => 'required',
-			'product_name' => 'required',
-			'start_date' => 'required',
-			'end_date' => 'required',
-			
-		]);
-         $loggeduser=\App::make('authenticator')->getLoggedUser();
-		$product =m_product::find($id);
-		$product->product_id = Input::get('product_id');
-		$product->product_name = Input::get('product_name');
-		$product->start_date = Input::get('start_date');
-		$product->end_date = Input::get('end_date');
-		$product->user_id = $loggeduser->id;//Auth::user()->id;
-
-		if ($product->save()) {
-			return Redirect::to('products');
-		} else {
-			return Redirect::back()->withInput()->withErrors('保存失败！');
-		}
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-         $product=m_product::find($id);
-		$product->delete();
-
-		return Redirect::to('products');
-    }
+    
+   
 	 /**
      * post product infro and the begin time
 	 * end time

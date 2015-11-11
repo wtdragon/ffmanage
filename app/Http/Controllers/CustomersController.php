@@ -26,7 +26,7 @@ class CustomersController extends Controller
     	    $customers= m_customer::where('user_id',$loggeduser->id)->paginate(10);	
 			}
 			else {
-				$customers=m_customer::all()->paginate(10);
+				$customers=m_customer::paginate(10);
 			}
           	  return view('customers.index')->withCustomers($customers);
 		 
