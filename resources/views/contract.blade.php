@@ -25,7 +25,7 @@
 	总渠道费比例：{{ $contract->channel_cut }}
 </p> 
 <p>
-	公司渠道费：{{ $contract->channel_cut }}
+	公司渠道费：{{ $contract->comcut }}
 </p> 
 <p>
 	既：市场各职级渠道费为{{ $contract->deal_money }}X{{ $contract->channel_cut }}%={{ $tqt }}万元
@@ -35,9 +35,9 @@
 	{{ $position->position_name }} {{ $position->employee->employee_name }} :市场各职级渠道费{{  $salescut }}%:{{ $contract->deal_money }}万X{{  $salescut }}%={{  $salecutmoney }}万元
 </p>
  @foreach ($parentcontents as $key => $value)
-  <p>
+  <p>@if($key)
   	{{ $key }} :市场各职级渠道费:{{ $value }}
-
+     @endif
   </p>
  @endforeach
     <p>

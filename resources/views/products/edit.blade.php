@@ -22,7 +22,7 @@
 	 <form action="{{ URL('products/'.$product->id) }}" method="POST">
             <input name="_method" type="hidden" value="PUT">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             产品名称 
+               产品编码   
             <input type="text" name="product_id" class="form-control" required="required" value="{{ $product->product_id }}">
            
             产品名称  

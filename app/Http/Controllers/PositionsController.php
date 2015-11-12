@@ -75,12 +75,12 @@ class PositionsController extends Controller
 		$position->start_date = Input::get('start_date');
 		$position->end_date = Input::get('end_date');
 		$position->employee_id = Input::get('employee_id');
-		$position->leader_id = Input::get('leader_id');
-		$demons = m_position::where('employee_id', '=', $position->leader_id)->first();
+		 $leader_id= Input::get('leader_id');
+		$demons = m_position::where('leader_id', '=', $leader_id)->first();
 		
 		$position->depth =$demons->getLevel()+1;
 		$position->user_id = $loggeduser->id;//Auth::user()->id;
-
+$position->leader_id=$demons->employee_id;
 		if ($position->save()) {
 			return Redirect::to('positions');
 		} else {
@@ -142,9 +142,12 @@ class PositionsController extends Controller
 		$position->start_date = Input::get('start_date');
 		$position->end_date = Input::get('end_date');
 		$position->employee_id = Input::get('employee_id');
-		$position->leader_id = Input::get('leader_id');
-		$demons = m_position::where('employee_id', '=', $position->leader_id)->first();
+		 $leader_id= Input::get('leader_id');
+		$demons = m_position::where('leader_id', '=', $leader_id)->first();
 		
+		$position->depth =$demons->getLevel()+1;
+		$position->user_id = $loggeduser->id;//Auth::user()->id;
+$position->leader_id=$demons->employee_id;
 		$position->depth =$demons->getLevel()+1;
 		$position->user_id = $loggeduser->id;//Auth::user()->id;
 

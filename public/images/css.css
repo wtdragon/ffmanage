@@ -13,7 +13,7 @@ a:hover {
 	font-size: 12px;color: #F00;text-decoration: underline;
 }
 ul{
-	margin:0; padding:0; list-style-type:none;font-size:0;
+	margin:0; padding:0; list-style-type:none;
 }
 DL {
 	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
@@ -70,7 +70,10 @@ DD {
 	display:block;color:#000000;background-color:#FFF;text-decoration:none;height: 30px;width: 190px;padding: 10px 0 0 24px;
 }
 #main .mainright {
-	 
+	    width: 1500px;
+  
+    float: left;
+    padding-left: 50px; 
 }
 .en{
     font-family:Verdana;font-size:9px;color:#666;

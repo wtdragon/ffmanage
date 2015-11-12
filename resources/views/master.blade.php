@@ -50,7 +50,7 @@
          {{$loggeduser->email }} 
          {{$groupname }} 
             <ul>
-         <li><a href="{{URL::to('user/logout')}}">登出</a></li> 
+         <li><a href="{{URL::to('user/logout')}}">退出登录</a></li> 
 @else
          <li><a href="{{URL::to('login')}}">登录</a></li>
 @endif
@@ -70,7 +70,7 @@
    </ul>
   </div>
   <div class="mainright">
-   <div class="content">
+   <div class="row">
    	@yield('content')
 	  </div>
   </div>

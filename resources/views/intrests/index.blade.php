@@ -52,10 +52,12 @@
 </tr>
 @endforeach
 </tbody>
+
 </table>
- {!! $intrests->render() !!}
+
 
  </div>
+  {!! $intrests->render() !!}
  @include('delconfirm')   
 @stop
 @section('bootor')

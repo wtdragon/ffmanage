@@ -57,7 +57,7 @@
             <div class="form-group"> 
   <select class="form-control" name="leader_id">
   	@foreach($leaders as $leader)
-      <option value="{{$leader->id}}">{{$leader->employee->employee_name}}</option>
+      <option value="{{$leader->leader_id}}">{{$leader->employee->employee_name}}</option>
     @endforeach
   </select>  
   </div>

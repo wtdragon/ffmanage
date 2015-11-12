@@ -35,7 +35,7 @@
 <td>{{ $pid }}</td>
 <td>{{ $contract->contract_id }}</td>
 <td>{{ $contract->employee->employee_name }}</td>
-<td>{{ $contract->customer_id }}</td>
+<td>{{ $contract->customer->customer_name }}</td>
 <td>{{ $contract->pay_date }}</td>
 <td>{{ $contract->deal_money }}</td>
 <td>{{ $contract->profit_byyear }}</td>
