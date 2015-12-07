@@ -151,7 +151,11 @@ class ReportsController extends Controller
        	
 		$start_date = Input::get('start_date');
 		$end_date = Input::get('end_date');
+		$rintrest = Input::get('return_intrest');
+		$infound = Input::get('intrests_found');
 		
+		if($rintrest==1){
+			if($infound==1){
 	    $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
     	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
@@ -163,7 +167,143 @@ class ReportsController extends Controller
 	                                ->where('planinterest_date','<=',$end_date)->get();
 			
 			}
-							
+			}
+			elseif($infound==2){
+				 $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+	                                ->where('planinterest_date','<=',$end_date)
+									 ->where('principal_money','=',0)
+	                                ->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			                        ->where('principal_money','=',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}		
+		    else{
+				 $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+									 ->where('principal_money','<>',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			  ->where('principal_money','<>',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}		
+		}	
+elseif($rintrest==2){
+			if($infound==1){
+	    $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+									->where('have_intrests','=',1)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			 ->where('have_intrests','=',1)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}
+			elseif($infound==2){
+				 $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+	                                ->where('planinterest_date','<=',$end_date)
+									 ->where('principal_money','=',0)
+									 ->where('have_intrests','=',1)
+	                                ->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			                        ->where('principal_money','=',0)
+									->where('have_intrests','=',1)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}		
+		    else{
+				 $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+									 ->where('principal_money','<>',0)
+									 ->where('have_intrests','=',1)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			  ->where('principal_money','<>',0)
+			  ->where('have_intrests','=',1)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}		
+		}			
+else{
+			if($infound==1){
+	    $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+									->where('have_intrests','=',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			                        ->where('have_intrests','=',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}
+			elseif($infound==2){
+				 $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+	                                ->where('planinterest_date','<=',$end_date)
+									 ->where('principal_money','=',0)
+									 ->where('have_intrests','=',0)
+	                                ->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			                        ->where('principal_money','=',0)
+									->where('have_intrests','=',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}		
+		    else{
+				 $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
+            if(array_key_exists('_branch',$loggeduser->permissions)){
+    	  $intrests=t_interestdetail::where('user_id',$loggeduser->id)
+	                                ->where('planinterest_date','>',$start_date)
+									 ->where('principal_money','<>',0)
+									 ->where('have_intrests','=',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			}
+			else{
+			 $intrests=t_interestdetail::where('planinterest_date','>',$start_date)
+			  ->where('principal_money','<>',0)
+			  ->where('have_intrests','=',0)
+	                                ->where('planinterest_date','<=',$end_date)->get();
+			
+			}
+			}		
+		}							
 	    if($intrests->count())
 	    {
 	    	 $timerange="本时间段";

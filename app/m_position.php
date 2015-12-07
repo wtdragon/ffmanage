@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class m_position extends \Baum\Node
 {
+  use SoftDeletes;
+
+  protected $dates = ['deleted_at']; 
   protected $table = 'm_positions';
 
   // 'parent_id' column name

@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class t_interestdetail extends Model
 {
     //
-    public function contract()
+    use SoftDeletes;
+
+protected $dates = ['deleted_at']; 
+public function contract()
 {
     return $this->belongsTo('App\t_contract', 'contract_id');
 }
@@ -18,5 +21,9 @@ class t_interestdetail extends Model
    public function product()
 {
     return $this->belongsTo('App\m_product', 'product_id');
+}
+ public function employee()
+{
+    return $this->belongsTo('App\m_employee', 'sales_id');
 }
 }

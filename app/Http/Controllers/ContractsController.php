@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\t_contract,App\m_product,App\m_customer,App\m_employee,App\t_interestdetail;
 use yajra\Datatables\Datatables;
+use Carbon\Carbon;
 use Redirect, Input;
 class ContractsController extends Controller
 {
@@ -25,10 +26,10 @@ class ContractsController extends Controller
         //
               $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
-    	        $contracts= t_contract::where('user_id',$loggeduser->id)->paginate(10);	
+    	        $contracts= t_contract::where('user_id',$loggeduser->id)->orderBy('contract_id', 'desc')->orderBy('pay_date', 'desc')->paginate(10);	
 			}
 			else {
-				$contracts=t_contract::paginate(10);
+				$contracts=t_contract::orderBy('contract_id', 'desc')->orderBy('pay_date', 'desc')->paginate(10);
 			}
 			 return view('contracts.index')->withContracts($contracts);
 		 
@@ -113,21 +114,23 @@ class ContractsController extends Controller
 		$contract->pay_mothod = Input::get('pay_mothod');
 		$contract->pay_date = Input::get('pay_date');
 		$contract->pay_time = Input::get('pay_time');
-		if($contract->pay_mothod=="pos" && strtotime($contract->pay_time) >= strtotime('12:00') )
-		{    
-			$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+31days",strtotime($contract->pay_date)));
+		$cdate=Carbon::createFromFormat('Y-m-d',$contract->pay_date);    
+		if($contract->pay_mothod=="pos")
+		{
+			
+			$contract->intrests_start_date = $cdate->addMonth()->addDay()->toDateString();
+			 
 		     
 			
 		}
 		else
 		{
-		$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+30days",strtotime($contract->pay_date)));
-		 
+		 $contract->intrests_start_date = $cdate->addMonth()->toDateString(); 
 		}
 		$contract->deal_money = Input::get('deal_money');
 		
 		$contract->profit_byyear = Input::get('profit_byyear');
-		$contract->profit_bymonth= $contract->profit_byyear/12;
+		$contract->profit_bymonth= round($contract->profit_byyear/12,3);
 		
 		$contract->intrests_money_bymonth=$contract->deal_money*10000*$contract->profit_bymonth/100;
 		
@@ -136,7 +139,19 @@ class ContractsController extends Controller
 		$contract->other = Input::get('other');
 		$contract->user_id = $loggeduser->id;//Auth::user()->id;
         
-       
+       if($contract->pay_mothod=="pos")
+		{
+			
+			$sdate  = Carbon::createFromFormat('Y-m-d',$contract->pay_date)->addDay();
+			 
+		     
+			
+		}
+		else
+		{
+		 $sdate=Carbon::createFromFormat('Y-m-d',$contract->pay_date);   
+		} 
+        
         for($i=1;$i <=$contract->invest_time;$i++) {
   if($i!=$contract->invest_time)
     {   
@@ -144,11 +159,10 @@ $intrest = new t_interestdetail;
 $intrest->contract_id = $contract->contract_id;
 $intrest->product_id = $contract->product_id;
 $intrest->customer_id = $contract->customer_id;
-
-$days=($i-1)*30;
-$intrest->planinterest_date = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
-
-$intrest->realinterest_date  = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
+ $intrest->pay_date =   $contract->pay_date;
+ $intrest->sales_id =$contract->sales_id;
+$intrest->planinterest_date = $sdate->addMonth()->toDateString();
+ $intrest->realinterest_date  = $intrest->planinterest_date;
 $intrest->principal_money = 0;
 $intrest->bonused_time = 0;
 $intrest->rest_time =  $contract->invest_time;
@@ -169,18 +183,18 @@ $intrest->contract_id = $contract->contract_id;
 $intrest->customer_id = $contract->customer_id;
 
 $intrest->product_id = $contract->product_id;
-$days=($i-1)*30;
-$intrest->planinterest_date = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
-
-$intrest->realinterest_date  = date("Y-m-d H:i:s",strtotime("+" . $days . "days",strtotime($contract->intrests_start_date)));
+ 
+$intrest->planinterest_date = $sdate->addMonth()->toDateString();
+ $intrest->realinterest_date  = $intrest->planinterest_date;
 $intrest->principal_money = $contract->deal_money;
 $intrest->bonused_time = 0;
 $intrest->rest_time =  $contract->invest_time;
 $intrest->total_time = $contract->invest_time;
 $intrest->profit_byyear = $contract->profit_byyear;
-
+ $intrest->pay_date =   $contract->pay_date;
+ $intrest->sales_id =$contract->sales_id;
 $lm=floor($contract->deal_money*10000*($contract->profit_bymonth/100))*($contract->invest_time-1);
-$intrest->interests_money = $contract->deal_money*10000*($contract->profit_bymonth/100)*$contract->invest_time - $lm;
+$intrest->interests_money = $contract->deal_money*10000*($contract->profit_byyear/1200)*$contract->invest_time - $lm;
  
 $intrest->user_id = $loggeduser->id;//Auth::user()->id;
 				
@@ -216,7 +230,7 @@ $intrest->user_id = $loggeduser->id;//Auth::user()->id;
     public function edit($id)
     {
         //
-          $loggeduser=\App::make('authenticator')->getLoggedUser();
+         $loggeduser=\App::make('authenticator')->getLoggedUser();
          $products=m_product::all();
 		 $customers=m_customer::where('user_id',$loggeduser->id)->get();
 		 $sales=m_employee::where('user_id',$loggeduser->id)->get();
@@ -248,7 +262,7 @@ $intrest->user_id = $loggeduser->id;//Auth::user()->id;
 			'invest_time' => 'required',
 			'channel_cut' => 'required',
 		]);
-         $loggeduser=\App::make('authenticator')->getLoggedUser();
+        $loggeduser=\App::make('authenticator')->getLoggedUser();
 		$contract = t_contract::find($id);
 		$contract->contract_id = Input::get('contract_id');
 		$contract->product_id = Input::get('product_id');
@@ -258,23 +272,90 @@ $intrest->user_id = $loggeduser->id;//Auth::user()->id;
 		$contract->pay_date = Input::get('pay_date');
 		$contract->pay_time = Input::get('pay_time');
 		$contract->deal_money = Input::get('deal_money');
-		if($contract->pay_mothod=="pos" && strtotime($contract->pay_time) >= strtotime('12:00') )
-		{    
-			$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+31days",strtotime($contract->pay_date)));
+		$cdate=Carbon::createFromFormat('Y-m-d',$contract->pay_date); 
+		if($contract->pay_mothod=="pos")
+		{
+			
+			$contract->intrests_start_date = $cdate->addMonth()->addDay()->toDateString();
+			 
 		     
 			
 		}
-		else{
-		$contract->intrests_start_date = date("Y-m-d H:i:s",strtotime("+30days",strtotime($contract->pay_date)));
-		 
+		else
+		{
+		 $contract->intrests_start_date = $cdate->addMonth()->toDateString(); 
 		}
+		
         $contract->profit_byyear = Input::get('profit_byyear');
 		$contract->invest_time = Input::get('invest_time');
 		$contract->channel_cut = Input::get('channel_cut');
 		$contract->other = Input::get('other');
 		$contract->user_id = $loggeduser->id;//Auth::user()->id;
         
+         $delintrest=t_interestdetail::where('contract_id','=',$contract->contract_id)->delete();
+	 
         
+          if($contract->pay_mothod=="pos")
+		{
+			
+			$sdate  = Carbon::createFromFormat('Y-m-d',$contract->pay_date)->addDay();
+			 
+		     
+			
+		}
+		else
+		{
+		 $sdate=Carbon::createFromFormat('Y-m-d',$contract->pay_date);   
+		}   
+        for($i=1;$i <=$contract->invest_time;$i++) {
+  if($i!=$contract->invest_time)
+    {   
+$intrest = new t_interestdetail;
+$intrest->contract_id = $contract->contract_id;
+$intrest->product_id = $contract->product_id;
+$intrest->customer_id = $contract->customer_id;
+ $intrest->pay_date =   $contract->pay_date;
+ $intrest->sales_id =$contract->sales_id;
+$intrest->planinterest_date = $sdate->addMonth()->toDateString();
+ $intrest->realinterest_date  = $intrest->planinterest_date;
+$intrest->principal_money = 0;
+$intrest->bonused_time = 0;
+$intrest->rest_time =  $contract->invest_time;
+$intrest->total_time = $contract->invest_time;
+
+$intrest->profit_byyear = $contract->profit_byyear;
+
+$intrest->interests_money = floor($contract->deal_money*10000*($contract->profit_bymonth/100));
+ 
+$intrest->user_id = $loggeduser->id;//Auth::user()->id;
+				
+	$intrest->save();			
+      }
+ else 
+      {
+				$intrest = new t_interestdetail;
+$intrest->contract_id = $contract->contract_id;
+$intrest->customer_id = $contract->customer_id;
+
+$intrest->product_id = $contract->product_id;
+ 
+$intrest->planinterest_date = $sdate->addMonth()->toDateString();
+ $intrest->realinterest_date  = $intrest->planinterest_date;
+$intrest->principal_money = $contract->deal_money;
+$intrest->bonused_time = 0;
+$intrest->rest_time =  $contract->invest_time;
+$intrest->total_time = $contract->invest_time;
+$intrest->profit_byyear = $contract->profit_byyear;
+ $intrest->pay_date =   $contract->pay_date;
+ $intrest->sales_id =$contract->sales_id;
+$lm=floor($contract->deal_money*10000*($contract->profit_bymonth/100))*($contract->invest_time-1);
+$intrest->interests_money = $contract->deal_money*10000*($contract->profit_byyear/1200)*$contract->invest_time - $lm;
+ 
+$intrest->user_id = $loggeduser->id;//Auth::user()->id;
+				
+	$intrest->save();
+	 }
+}
         
 		if ($contract->save()) {
 			return Redirect::to('contracts');
@@ -294,7 +375,8 @@ $intrest->user_id = $loggeduser->id;//Auth::user()->id;
         //
         $contract=t_contract::find($id);
 		$contract->delete();
-
+        $delintrest=t_interestdetail::where('contract_id','=',$id)->get();
+		$delintrest->delete();
 		return Redirect::to('contracts');
     }
 }

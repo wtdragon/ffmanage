@@ -49,8 +49,18 @@
 <td>{{ $contract->profit_byyear}}</td>
 <td>{{ $contract->invest_time }}</td>
  <?php $archivemoney=0;
+       $haveintrest=0;
         $archivemoney=$contract->deal_money*$contract->invest_time/12;
-	  ?>
+		$intrest=App\t_interestdetail::where('contract_id','=',$contract->contract_id)
+		                               ->where('have_intrests','=',1)->first();
+        if($intrest)
+		{
+			$intrest_count=1;
+		}
+		else{
+			$intrest_count=0;
+          }
+		 ?>
 <td>{{ number_format(round($archivemoney,2)*10000) }}</td>
 <td>{{ $contract->profit_bymonth}}%</td>
  
@@ -62,13 +72,20 @@
 <td>{{ $contract->channel_cut}}%</td>
 
 <td>{{ $contract->other }}</td>
+ 
+@if(!$intrest_count)
 <td><a href="{{ URL::route('contracts.edit', $contract->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 <form action="{{ URL('contracts/'.$contract->id) }}" method="POST" style="display: inline;">
-              <input name="_method" type="hidden" value="DELETE">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete" data-title="删除" data-message="确认要删除此数据吗 ?">删除</button>
+<input name="_method" type="hidden" value="DELETE">
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+<button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete" data-title="删除" data-message="确认要删除此数据吗 ?">删除</button>
 </form>
 </td>
+@else
+<td></td>
+<td></td>
+@endif
+
 </tr>
 @endforeach
 </tbody>

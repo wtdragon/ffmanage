@@ -79,7 +79,25 @@
             placeholder="开始日期">~
           <input type="date" class="form-control" name="end_date" 
             placeholder="结束日期"> 
- 
+   
+     <select class="form-control" name="return_intrest" >
+   
+      <option value="1">是否结息</option>
+       <option value="2">是</option>
+        <option value="3">否</option>
+      
+     
+    
+  </select>   
+      <select class="form-control" name="intrests_found" >
+   
+      <option value="1">返本返息</option>
+       <option value="2">返息</option>
+        <option value="3">返本息</option>
+  
+     
+    
+  </select>  
         <button type="submit" class="btn btn-default" target="_blank">生成客户分红明细报表</button>
    </div>
 </form>

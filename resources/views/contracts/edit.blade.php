@@ -28,6 +28,7 @@
               产品名称
               <div class="form-group"> 
   <select class="form-control" name="product_id">
+  	  <option value="{{$contract->product_id }}">{{$contract->product->product_name}}</option>
   	@foreach($products as $product)
       <option value="{{$product->id }}">{{$product->product_name}}</option>
     @endforeach
@@ -38,6 +39,7 @@
             客户姓名:
             <div class="form-group"> 
   <select class="form-control" name="customer_id">
+  	 <option value="{{$contract->customer_id}}">{{$contract->customer->customer_name}}</option>
   	@foreach($customers as $customer)
       <option value="{{$customer->id}}">{{$customer->customer_name}}</option>
     @endforeach
@@ -48,6 +50,7 @@
             出单人:
             <div class="form-group"> 
   <select class="form-control" name="sales_id">
+  	 <option value="{{$contract->sales_id}}">{{$contract->employee->employee_name}}</option>
   	@foreach($sales as $sale)
       <option value="{{$sale->id}}">{{$sale->employee_name}}</option>
     @endforeach
@@ -58,7 +61,7 @@
             付款方式：
   <div class="form-group" id="paymethod"> 
   <select class="form-control" name="pay_mothod">
-   
+      <option value="{{$contract->pay_mothod}}">{{$contract->pay_mothod}}</option>
       <option value="网银">网银</option>
        <option value="柜台">柜台</option>
         <option value="pos">pos</option>
@@ -84,7 +87,7 @@
               投资期限
             <div class="form-group" id="invest_time"> 
   <select class="form-control" name="invest_time">
-   
+      <option value="{{ $contract->invest_time }}">{{ $contract->invest_time }}个月</option>
       <option value="1">1个月</option>
        <option value="3">3个月</option>
         <option value="6">6个月</option>

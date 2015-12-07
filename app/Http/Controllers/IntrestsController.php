@@ -22,10 +22,10 @@ class IntrestsController extends Controller
     {
     	    $loggeduser=$loggeduser=\App::make('authenticator')->getLoggedUser();       
             if(array_key_exists('_branch',$loggeduser->permissions)){
-    	    $contracts= t_interestdetail::where('user_id',$loggeduser->id)->paginate(10);	
+    	    $contracts= t_interestdetail::where('user_id',$loggeduser->id)->orderBy('contract_id', 'desc')->orderBy('planinterest_date', 'desc')->paginate(10);	
 			}
 			else {
-				$contracts=t_interestdetail::paginate(10);
+				$contracts=t_interestdetail::orderBy('contract_id', 'desc')->orderBy('planinterest_date', 'desc')->paginate(10);
 			}
 			 
 			return view('intrests.index')->withIntrests($contracts);
